@@ -80,17 +80,19 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     }
     const { email, password } = params;
     const findExistingUser = await Users.find({ email: email });
-    console.log(findExistingUser[0].hashedPassword);
+
     if (findExistingUser.length === 0) {
       res.status(400).json({
         success: false,
         message: "User data doesn't exit",
       });
     }
-    const checkedPassword = findExistingUser
-      ? findExistingUser[0].hashedPassword
-      : "thisidnotValid";
-    if (await bcrypt.compare(password, checkedPassword)) {
+    if (
+      await bcrypt.compare(
+        password,
+        findExistingUser ? findExistingUser[0].hashedPassword : "thisidnotValid"
+      )
+    ) {
       const userInterestData = await Users.find({
         hobby: { $regex: findExistingUser[0].hobby },
         sex: { $not: { $regex: findExistingUser[0].seekingFor } },
@@ -100,7 +102,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
         data: userInterestData,
       });
     } else {
-      res.status(500).json({
+      res.status(401).json({
         success: false,
         data: "Хэрэглэгчийн мэдээллээ зөв оруулна уу",
       });
