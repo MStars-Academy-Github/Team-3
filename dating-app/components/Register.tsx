@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { FcBusinessman } from "react-icons/Fc";
 import { FcBusinesswoman } from "react-icons/Fc";
 
 type Props = {};
 
 const Register = (props: Props) => {
+  const data = ["Basketball", "Football", "Vollyball", "Reading book","Music"];
+  const [hobby, setHobby] = useState<never[]>([]);
+  console.log(hobby.toString());
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+      <pre>{JSON.stringify(hobby)}</pre>
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
@@ -70,36 +75,26 @@ const Register = (props: Props) => {
             <label className="block mb-2 font-bold text-gray-600">
               Hobbies
             </label>
-            <div className="flex gap-3">
-              <input
-                type="checkbox"
-                id="button"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                placeholder="Basketball"
-                required
-              />
-              <label htmlFor="">Basketball</label>
-              <input
-                type="checkbox"
-                id="button"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                required
-              />
-              <label htmlFor="">Football</label>
-              <input
-                type="checkbox"
-                id="button"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                required
-              />
-              <label htmlFor="">Vollyball</label>
-              <input
-                type="checkbox"
-                id="button"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                required
-              />
-              <label htmlFor="">Reading book</label>
+            <div className="flex gap-3" >
+            {data.map((e: any, i: number) => {
+              return (
+                <>
+                 <input
+                  key={i}
+                    type="checkbox"
+                    value={hobby}
+                    name={e.name}
+                    className="border border-gray-300 shadow p-3 rounded mb-"
+                    onChange={() => {
+                      setHobby([...hobby, e]);
+                    }}
+                  />
+                  <label htmlFor="inlineCheckboxh1">{e}</label>
+                </>
+                 
+                
+              );
+            })}
             </div>
           </div>
           <div className="mt-1 flex flex-col items-center">
