@@ -67,42 +67,39 @@ const Register = (props: Props) => {
             </div>
           </div>
           <div className="mb-6">
-            <label
-              htmlFor="button"
-              className="block mb-2 font-bold text-gray-600"
-            >
+            <label className="block mb-2 font-bold text-gray-600">
               Hobbies
             </label>
-            <div className="flex gap-6 w-2/4">
+            <div className="flex gap-3">
               <input
-                type="button"
+                type="checkbox"
                 id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
+                className="border border-gray-300 shadow p-3 rounded mb-"
                 placeholder="Basketball"
-                defaultValue="Basketball"
                 required
               />
+              <label htmlFor="">Basketball</label>
               <input
-                type="button"
+                type="checkbox"
                 id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                defaultValue="Football"
+                className="border border-gray-300 shadow p-3 rounded mb-"
                 required
               />
+              <label htmlFor="">Football</label>
               <input
-                type="button"
+                type="checkbox"
                 id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                defaultValue="Vollyball"
+                className="border border-gray-300 shadow p-3 rounded mb-"
                 required
               />
+              <label htmlFor="">Vollyball</label>
               <input
-                type="button"
+                type="checkbox"
                 id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                defaultValue="Reading book"
+                className="border border-gray-300 shadow p-3 rounded mb-"
                 required
               />
+              <label htmlFor="">Reading book</label>
             </div>
           </div>
           <div className="mt-1 flex flex-col items-center">
