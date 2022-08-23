@@ -83,7 +83,7 @@ const Register = (props: Props) => {
                       key={i}
                       type="checkbox"
                       value={hobby}
-                      name={e.name}
+                      name={e}
                       className="border border-gray-300 shadow p-3 rounded mb-"
                       onChange={() => {
                         setHobby([...hobby, e]);
