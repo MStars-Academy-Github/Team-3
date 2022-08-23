@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
 type Props = {};
 
 const Login = (props: Props) => {
+  const [error, setError] = useState();
   const router = useRouter();
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -14,20 +15,25 @@ const Login = (props: Props) => {
     axios
       .post("http://localhost:4000/users/login", { email, password })
       .then((res) => {
-        console.log(res.data.data.success);
-        // if (res.data.data.success === true) {
-        //   router.push("/main");
-        // }
+        if (res.data.success === true) {
+          router.push("/main");
+        } else {
+          console.log(res.data.message);
+        }
       })
       .catch((err) => {
         console.error(err);
+        setError(err.message);
       });
   };
+
+  //<iframe src="https://giphy.com/embed/4N1wOi78ZGzSB6H7vK" width="480" height="440" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/friends-sad-bury-4N1wOi78ZGzSB6H7vK">via GIPHY</a></p>
+
   return (
-    <div className=" min-h-screen flex items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63] ">
-      <div className="w-full">
+    <div className="min-h-screen flex items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63] ">
+      <div className="w-full bg-[url('https://media3.giphy.com/media/4N1wOi78ZGzSB6H7vK/giphy.gif?cid=ecf05e47hoedf6xnhy5u599gjvr9a14xn2zl2mrbzvn3pn4k&rid=giphy.gif&ct=g' )]">
         <h2 className="text-center text-blue-400  font-bold text-2xl uppercase mb-10">
-          Please Login
+          Please Login Dating App
         </h2>
         <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
           <form action="form" onSubmit={handleSubmit}>
@@ -59,9 +65,9 @@ const Login = (props: Props) => {
                 placeholder="Password"
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               />
-              <p className="text-sm text-red-400 mt-2">
-                Username password is required
-              </p>
+              <pre className="text-sm text-red-400 mt-2">
+                {JSON.stringify(error)}
+              </pre>
             </div>
 
             <button
