@@ -39,7 +39,7 @@ const Register = (props: Props) => {
     console.log(gender);
   };
   return (
-    <div className="bg-blue-200 min-h-screen flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
@@ -110,24 +110,33 @@ const Register = (props: Props) => {
                 type="checkbox"
                 className="border border-gray-300 shadow p-3 rounded mb-"
                 name="Basketball"
+                id="button"
+                placeholder="Basketball"
+                required
               />
               <label htmlFor="">Basketball</label>
               <input
                 type="checkbox"
                 className="border border-gray-300 shadow p-3 rounded mb-"
                 name="Football"
+                id="button"
+                required
               />
               <label htmlFor="">Football</label>
               <input
                 type="checkbox"
                 className="border border-gray-300 shadow p-3 rounded mb-"
                 name="Vollyball"
+                id="button"
+                required
               />
               <label htmlFor="">Vollyball</label>
               <input
                 type="checkbox"
                 className="border border-gray-300 shadow p-3 rounded mb-"
                 name="Reading book"
+                id="button"
+                required
               />
               <label htmlFor="">Reading book</label>
             </div>

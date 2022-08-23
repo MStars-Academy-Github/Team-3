@@ -99,6 +99,11 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
         success: true,
         data: userInterestData,
       });
+    } else {
+      res.status(404).json({
+        success: false,
+        data: "Хэрэглэгчийн мэдээллээ зөв оруулна уу",
+      });
     }
   } catch (err: any) {
     console.log(err.message);

@@ -1,16 +1,36 @@
 import React from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 const Login = (props: Props) => {
+  const router = useRouter();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const email = e.target.username.value;
+    const password = e.target.password.value;
+    console.log(password);
+    axios
+      .post("http://localhost:4000/users/login", { email, password })
+      .then((res) => {
+        console.log(res.data.data.success);
+        // if (res.data.data.success === true) {
+        //   router.push("/main");
+        // }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   return (
-    <div className="bg-blue-200 min-h-screen flex items-center">
+    <div className=" min-h-screen flex items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63] ">
       <div className="w-full">
-        <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10">
+        <h2 className="text-center text-blue-400  font-bold text-2xl uppercase mb-10">
           Please Login
         </h2>
         <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
-          <form action="">
+          <form action="form" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label
                 htmlFor="name"
@@ -20,8 +40,7 @@ const Login = (props: Props) => {
               </label>
               <input
                 type="text"
-                id="name"
-                name="name"
+                name="username"
                 placeholder="Username"
                 className="border border-gray-300 shadow p-3 w-full rounded mb-"
               />
@@ -36,8 +55,7 @@ const Login = (props: Props) => {
               </label>
               <input
                 type="text"
-                id="twitter"
-                name="twitter"
+                name="password"
                 placeholder="Password"
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               />
@@ -46,7 +64,10 @@ const Login = (props: Props) => {
               </p>
             </div>
 
-            <button className="block w-full bg-blue-500 text-white font-bold p-4 rounded-lg">
+            <button
+              type="submit"
+              className="block w-full bg-gradient-to-r from-[#e46dbe] to-[#c49a63] text-white font-bold p-4 rounded-lg"
+            >
               Submit
             </button>
           </form>
