@@ -5,7 +5,7 @@ import { FcBusinesswoman } from "react-icons/Fc";
 type Props = {};
 
 const Register = (props: Props) => {
-  const data = ["Basketball", "Football", "Vollyball", "Reading book","Music"];
+  const data = ["Basketball", "Football", "Vollyball", "Reading book", "Music"];
   const [hobby, setHobby] = useState<never[]>([]);
   console.log(hobby.toString());
 
@@ -75,26 +75,24 @@ const Register = (props: Props) => {
             <label className="block mb-2 font-bold text-gray-600">
               Hobbies
             </label>
-            <div className="flex gap-3" >
-            {data.map((e: any, i: number) => {
-              return (
-                <>
-                 <input
-                  key={i}
-                    type="checkbox"
-                    value={hobby}
-                    name={e.name}
-                    className="border border-gray-300 shadow p-3 rounded mb-"
-                    onChange={() => {
-                      setHobby([...hobby, e]);
-                    }}
-                  />
-                  <label htmlFor="inlineCheckboxh1">{e}</label>
-                </>
-                 
-                
-              );
-            })}
+            <div className="flex gap-3">
+              {data.map((e: any, i: number) => {
+                return (
+                  <>
+                    <input
+                      key={i}
+                      type="checkbox"
+                      value={hobby}
+                      name={e.name}
+                      className="border border-gray-300 shadow p-3 rounded mb-"
+                      onChange={() => {
+                        setHobby([...hobby, e]);
+                      }}
+                    />
+                    <label htmlFor="inlineCheckboxh1">{e}</label>
+                  </>
+                );
+              })}
             </div>
           </div>
           <div className="mt-1 flex flex-col items-center">
