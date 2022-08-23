@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { FcBusinessman } from "react-icons/Fc";
 import { FcBusinesswoman } from "react-icons/Fc";
@@ -7,9 +8,35 @@ type Props = {};
 const Register = (props: Props) => {
   const handleRegister = (e: any) => {
     e.preventDefault();
+    const gender = e.target[2].checked == "true" ? "male" : "female";
+    const seekingGender = e.target[8].checked == "true" ? "male" : "female";
+    const regularHobby = e.target[4].checked == "true" ? "basketball" : "null";
+    console.log(regularHobby);
+    console.log(e);
+    // axios
+    //   .post("http://localhost:4000/users", {
+    //     firstName: e.target.firstName.value,
+    //     lastName: e.target.lastName.value,
+    //     sex: gender,
+    //     email: e.target.email.value,
+    //     password: e.target.confirmedPassword.value,
+    //     seekingFor: seekingGender,
+    //     hobby: "basketball",
+    //     age: 25,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => console.log(err));
     console.log(e.target.firstName.value);
     console.log(e.target.lastName.value);
+    console.log(e.target[4].value == "on");
+    console.log(e.target.email.value);
+    console.log(e.target.confirmedPassword.value);
+    console.log(e.target[2].value);
+
     console.log(e);
+    console.log(gender);
   };
   return (
     <div className="bg-blue-200 min-h-screen flex flex-col items-center">
@@ -75,42 +102,34 @@ const Register = (props: Props) => {
             </div>
           </div>
           <div className="mb-6">
-            <label
-              htmlFor="button"
-              className="block mb-2 font-bold text-gray-600"
-            >
+            <label className="block mb-2 font-bold text-gray-600">
               Hobbies
             </label>
-            <div className="flex gap-6 w-2/4">
+            <div className="flex gap-3">
               <input
-                type="button"
-                id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                placeholder="Basketball"
-                defaultValue="Basketball"
-                required
+                type="checkbox"
+                className="border border-gray-300 shadow p-3 rounded mb-"
+                name="Basketball"
               />
+              <label htmlFor="">Basketball</label>
               <input
-                type="button"
-                id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                defaultValue="Football"
-                required
+                type="checkbox"
+                className="border border-gray-300 shadow p-3 rounded mb-"
+                name="Football"
               />
+              <label htmlFor="">Football</label>
               <input
-                type="button"
-                id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                defaultValue="Vollyball"
-                required
+                type="checkbox"
+                className="border border-gray-300 shadow p-3 rounded mb-"
+                name="Vollyball"
               />
+              <label htmlFor="">Vollyball</label>
               <input
-                type="button"
-                id="button"
-                className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                defaultValue="Reading book"
-                required
+                type="checkbox"
+                className="border border-gray-300 shadow p-3 rounded mb-"
+                name="Reading book"
               />
+              <label htmlFor="">Reading book</label>
             </div>
           </div>
           <div className="mt-1 flex flex-col items-center">
@@ -175,7 +194,7 @@ const Register = (props: Props) => {
               id="confirm_password"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
               placeholder="•••••••••"
-              name="ConfirmedPassword"
+              name="confirmedPassword"
               required
             />
           </div>
