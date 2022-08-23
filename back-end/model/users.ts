@@ -20,7 +20,17 @@ const UsersSchema = new Schema({
   hobby: {
     type: String,
   },
+  email: {
+    type: String,
+  },
+  hashedPassword: {
+    type: String,
+    required: true,
+  },
+  seekingFor: {
+    type: String,
+  },
 });
-
 const Users = mongoose.model("users", UsersSchema);
+
 export default Users;
