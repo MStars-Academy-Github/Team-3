@@ -5,13 +5,19 @@ import { FcBusinesswoman } from "react-icons/Fc";
 type Props = {};
 
 const Register = (props: Props) => {
+  const handleRegister = (e: any) => {
+    e.preventDefault();
+    console.log(e.target.firstName.value);
+    console.log(e.target.lastName.value);
+    console.log(e);
+  };
   return (
     <div className="bg-blue-200 min-h-screen flex flex-col items-center">
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
       <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
-        <form action="">
+        <form action="form" onSubmit={(e) => handleRegister(e)}>
           <div className="mb-5">
             <div>
               <label
@@ -23,8 +29,9 @@ const Register = (props: Props) => {
               <input
                 type="text"
                 id="first_name"
+                name="firstName"
                 className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                placeholder="Sumiya"
+                placeholder="First name"
                 required
               />
             </div>
@@ -38,8 +45,9 @@ const Register = (props: Props) => {
               <input
                 type="text"
                 id="last_name"
+                name="lastName"
                 className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                placeholder="Batulzii"
+                placeholder="Last name"
                 required
               />
             </div>
@@ -110,11 +118,11 @@ const Register = (props: Props) => {
               Seeking for
             </label>
             <div className="flex justify-between">
-              <input type="radio" name="gender" required />
+              <input type="radio" name="genderSeeking" required />
               <label htmlFor="male" className="block font-bold text-gray-600">
                 <FcBusinessman className="w-6 h-6 " />
               </label>
-              <input type="radio" name="gender" required />
+              <input type="radio" name="genderSeeking" required />
               <label
                 htmlFor="female"
                 className="block font-bold  text-gray-600"
@@ -133,6 +141,7 @@ const Register = (props: Props) => {
             <input
               type="email"
               id="email"
+              name="email"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
               placeholder="john.doe@company.com"
               required
@@ -148,6 +157,7 @@ const Register = (props: Props) => {
             <input
               type="password"
               id="password"
+              name="password"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
               placeholder="•••••••••"
               required
@@ -165,13 +175,14 @@ const Register = (props: Props) => {
               id="confirm_password"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
               placeholder="•••••••••"
+              name="ConfirmedPassword"
               required
             />
           </div>
 
           <button
-            type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            type="submit"
           >
             Submit
           </button>
