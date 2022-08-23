@@ -100,7 +100,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
         data: userInterestData,
       });
     } else {
-      res.status(404).json({
+      res.status(500).json({
         success: false,
         data: "Хэрэглэгчийн мэдээллээ зөв оруулна уу",
       });
