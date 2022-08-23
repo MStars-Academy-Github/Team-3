@@ -4,9 +4,9 @@ type Props = {};
 
 const Login = (props: Props) => {
   return (
-    <div className="bg-blue-200 min-h-screen flex items-center">
+    <div className=" min-h-screen flex items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63] ">
       <div className="w-full">
-        <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10">
+        <h2 className="text-center text-blue-400  font-bold text-2xl uppercase mb-10">
           Please Login
         </h2>
         <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
@@ -46,7 +46,7 @@ const Login = (props: Props) => {
               </p>
             </div>
 
-            <button className="block w-full bg-blue-500 text-white font-bold p-4 rounded-lg">
+            <button className="block w-full bg-gradient-to-r from-[#e46dbe] to-[#c49a63] text-white font-bold p-4 rounded-lg">
               Submit
             </button>
           </form>
