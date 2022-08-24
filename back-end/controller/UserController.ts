@@ -37,6 +37,8 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const token = jwt.sign({ firstName: firstName }, tokenKey, {
       expiresIn: "2h",
     });
+    console.log(hashedPassword);
+    console.log(token);
     const createdUser = await Users.create({
       firstName,
       lastName,
@@ -47,7 +49,6 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       hashedPassword,
       seekingFor,
     });
-
     if (createdUser) {
       res.json({
         success: true,

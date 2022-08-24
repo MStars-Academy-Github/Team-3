@@ -24,7 +24,7 @@ const Register = (props: Props) => {
         email: e.target.email.value,
         password: e.target.confirmedPassword.value,
         seekingFor: seekingGender,
-        hobby: "basketball",
+        hobby: hobby.toString(),
         age: 25,
       })
       .then((res) => {
@@ -113,9 +113,8 @@ const Register = (props: Props) => {
             <div className="flex gap-3">
               {data.map((e: any, i: number) => {
                 return (
-                  <>
+                  <div key={i}>
                     <input
-                      key={i}
                       type="checkbox"
                       value={hobby}
                       name={e}
@@ -125,7 +124,7 @@ const Register = (props: Props) => {
                       }}
                     />
                     <label htmlFor="inlineCheckboxh1">{e}</label>
-                  </>
+                  </div>
                 );
               })}
             </div>
