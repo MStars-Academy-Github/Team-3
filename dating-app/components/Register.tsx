@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FcBusinessman } from "react-icons/Fc";
 import { FcBusinesswoman } from "react-icons/Fc";
@@ -5,16 +6,31 @@ import { FcBusinesswoman } from "react-icons/Fc";
 type Props = {};
 
 const Register = (props: Props) => {
-  const data = [
-    "Basketball",
-    "Football",
-    "Vollyball",
-    "Reading book",
-    "Music",
-    "Hiking",
-  ];
-  const [hobby, setHobby] = useState<any>([]);
-  console.log(hobby.toString());
+  const data = ["Basketball", "Football", "Vollyball", "Reading book", "Music"];
+  const [hobby, setHobby] = useState<any[]>([]);
+
+  const handleRegister = (e: any) => {
+    e.preventDefault();
+
+    const gender = e.target[2].checked == "true" ? "male" : "female";
+    const seekingGender = e.target[8].checked == "true" ? "male" : "female";
+
+    axios
+      .post("http://localhost:4000/users", {
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        sex: gender,
+        email: e.target.email.value,
+        password: e.target.confirmedPassword.value,
+        seekingFor: seekingGender,
+        hobby: hobby.toString(),
+        age: 25,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="min-h-screen  flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
@@ -22,8 +38,8 @@ const Register = (props: Props) => {
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
-      <div className="bg-white p-10 rounded-lg shadow md:w-2/4 mx-auto lg:w-2/6 xl:w-2/6 2xl:w-1/6">
-        <form action="">
+      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+        <form action="form" onSubmit={(e) => handleRegister(e)}>
           <div className="mb-5">
             <div>
               <label
@@ -35,8 +51,9 @@ const Register = (props: Props) => {
               <input
                 type="text"
                 id="first_name"
+                name="firstName"
                 className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                placeholder="Sumiya"
+                placeholder="First name"
                 required
               />
             </div>
@@ -50,8 +67,9 @@ const Register = (props: Props) => {
               <input
                 type="text"
                 id="last_name"
+                name="lastName"
                 className="border border-gray-300 shadow p-3 w-full rounded mb-"
-                placeholder="Batulzii"
+                placeholder="Last name"
                 required
               />
             </div>
@@ -135,7 +153,6 @@ const Register = (props: Props) => {
               })}
             </div>
           </div>
-
           <div className="mb-6">
             <label
               htmlFor="email"
@@ -146,6 +163,7 @@ const Register = (props: Props) => {
             <input
               type="email"
               id="email"
+              name="email"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
               placeholder="john.doe@company.com"
               required
@@ -161,6 +179,7 @@ const Register = (props: Props) => {
             <input
               type="password"
               id="password"
+              name="password"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
               placeholder="•••••••••"
               required
@@ -178,13 +197,14 @@ const Register = (props: Props) => {
               id="confirm_password"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
               placeholder="•••••••••"
+              name="confirmedPassword"
               required
             />
           </div>
 
           <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="submit"
-            className="text-white bg-gradient-to-r from-[#e46dbe] to-[#c49a63] focus:ring-4 w-full focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Submit
           </button>
