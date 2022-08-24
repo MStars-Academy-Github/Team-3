@@ -36,7 +36,7 @@ const Login = (props: Props) => {
         <h2 className="text-center text-blue-400  font-bold text-2xl uppercase mb-10">
           Please Login Dating App
         </h2>
-        <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+        <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4">
           <form action="form" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label

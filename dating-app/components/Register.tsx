@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FcBusinessman } from "react-icons/Fc";
 import { FcBusinesswoman } from "react-icons/Fc";
-
+import { useRouter } from "next/router";
 type Props = {};
 
 const Register = (props: Props) => {
   const data = ["Basketball", "Football", "Vollyball", "Reading book", "Music"];
   const [hobby, setHobby] = useState<any[]>([]);
-
+  const router = useRouter();
   const handleRegister = (e: any) => {
     e.preventDefault();
 
@@ -27,6 +27,12 @@ const Register = (props: Props) => {
         age: 25,
       })
       .then((res) => {
+        if (res.data.success === true) {
+          router.push("/main");
+          console.log(res.data.data);
+        } else {
+          console.log(res.data.message);
+        }
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -38,7 +44,7 @@ const Register = (props: Props) => {
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
-      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4">
         <form action="form" onSubmit={(e) => handleRegister(e)}>
           <div className="mb-5">
             <div>
@@ -106,14 +112,14 @@ const Register = (props: Props) => {
                   Seeking for
                 </label>
                 <div className="flex justify-between">
-                  <input type="radio" name="gender" required />
+                  <input type="radio" name="Seeking" required />
                   <label
                     htmlFor="male"
                     className="block font-bold text-gray-600"
                   >
                     <FcBusinessman className="w-6 h-6 " />
                   </label>
-                  <input type="radio" name="gender" required />
+                  <input type="radio" name="Seeking" required />
                   <label
                     htmlFor="female"
                     className="block font-bold  text-gray-600"
