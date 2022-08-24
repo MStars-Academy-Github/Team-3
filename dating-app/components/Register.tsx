@@ -5,17 +5,24 @@ import { FcBusinesswoman } from "react-icons/Fc";
 type Props = {};
 
 const Register = (props: Props) => {
-  const data = ["Basketball", "Football", "Vollyball", "Reading book", "Music"];
-  const [hobby, setHobby] = useState<never[]>([]);
+  const data = [
+    "Basketball",
+    "Football",
+    "Vollyball",
+    "Reading book",
+    "Music",
+    "Hiking",
+  ];
+  const [hobby, setHobby] = useState<any>([]);
   console.log(hobby.toString());
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+    <div className="min-h-screen  flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
       <pre>{JSON.stringify(hobby)}</pre>
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
-      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+      <div className="bg-white p-10 rounded-lg shadow md:w-2/4 mx-auto lg:w-2/6 xl:w-2/6 2xl:w-1/6">
         <form action="">
           <div className="mb-5">
             <div>
@@ -48,71 +55,87 @@ const Register = (props: Props) => {
                 required
               />
             </div>
-            <div className=" mt-1 flex flex-col items-center justify-center">
-              <label
-                htmlFor="gender"
-                className="block mb-2 font-bold text-gray-600"
-              >
-                Gender
-              </label>
-
-              <div className="flex">
-                <input type="radio" name="gender" required />
-                <label htmlFor="male" className="block font-bold text-gray-600">
-                  <FcBusinessman className="w-6 h-6 " />
-                </label>
-                <input type="radio" name="gender" required />
+            <div className="flex justify-around ">
+              <div className=" mt-1 flex flex-col items-center ">
                 <label
-                  htmlFor="female"
-                  className="block font-bold text-gray-600"
+                  htmlFor="gender"
+                  className="block  font-bold text-gray-600"
                 >
-                  <FcBusinesswoman className="w-6 h-6 " />
+                  Gender
                 </label>
+                <div className="flex justify-between">
+                  <input type="radio" name="gender" required />
+                  <label
+                    htmlFor="male"
+                    className="block font-bold text-gray-600"
+                  >
+                    <FcBusinessman className="w-6 h-6 " />
+                  </label>
+                  <input type="radio" name="gender" required />
+                  <label
+                    htmlFor="female"
+                    className="block font-bold text-gray-600"
+                  >
+                    <FcBusinesswoman className="w-6 h-6 " />
+                  </label>
+                </div>
+              </div>
+              <div className="mt-1 flex flex-col items-center">
+                <label
+                  htmlFor="gender"
+                  className="block font-bold text-gray-600 "
+                >
+                  Seeking for
+                </label>
+                <div className="flex justify-between">
+                  <input type="radio" name="gender" required />
+                  <label
+                    htmlFor="male"
+                    className="block font-bold text-gray-600"
+                  >
+                    <FcBusinessman className="w-6 h-6 " />
+                  </label>
+                  <input type="radio" name="gender" required />
+                  <label
+                    htmlFor="female"
+                    className="block font-bold  text-gray-600"
+                  >
+                    <FcBusinesswoman className="w-6 h-6 " />
+                  </label>
+                </div>
               </div>
             </div>
           </div>
+
           <div className="mb-6">
             <label className="block mb-2 font-bold text-gray-600">
               Hobbies
             </label>
-            <div className="flex gap-3">
+            <div className="inputCheckbox flex gap-2 flex-wrap justify-between">
               {data.map((e: any, i: number) => {
                 return (
                   <>
-                    <input
+                    <button
                       key={i}
-                      type="checkbox"
+                      type="button"
                       value={hobby}
                       name={e}
-                      className="border border-gray-300 shadow p-3 rounded mb-"
-                      onChange={() => {
+                      className="bg-[#fff] border-gray-300 shadow p-3 mb- rounded-full  focus:ring-0"
+                      onClick={() => {
                         setHobby([...hobby, e]);
                       }}
-                    />
-                    <label htmlFor="inlineCheckboxh1">{e}</label>
+                    >
+                      {e}
+                    </button>
+                    {/* <label htmlFor="inlineCheckboxh1" className="mr-[100px]">
+                      {e}
+                    </label> */}
                   </>
                 );
               })}
             </div>
           </div>
-          <div className="mt-1 flex flex-col items-center">
-            <label htmlFor="gender" className="block font-bold text-gray-600 ">
-              Seeking for
-            </label>
-            <div className="flex justify-between">
-              <input type="radio" name="gender" required />
-              <label htmlFor="male" className="block font-bold text-gray-600">
-                <FcBusinessman className="w-6 h-6 " />
-              </label>
-              <input type="radio" name="gender" required />
-              <label
-                htmlFor="female"
-                className="block font-bold  text-gray-600"
-              >
-                <FcBusinesswoman className="w-6 h-6 " />
-              </label>
-            </div>
-          </div>
+
           <div className="mb-6">
             <label
               htmlFor="email"

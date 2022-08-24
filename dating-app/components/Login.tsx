@@ -17,6 +17,7 @@ const Login = (props: Props) => {
       .then((res) => {
         if (res.data.success === true) {
           router.push("/main");
+          console.log(res.data.data);
         } else {
           console.log(res.data.message);
         }
