@@ -1,11 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { FcBusinessman } from "react-icons/Fc";
 import { FcBusinesswoman } from "react-icons/Fc";
 
 type Props = {};
 
 const Register = (props: Props) => {
+  const data = ["Basketball", "Football", "Vollyball", "Reading book", "Music"];
+  const [hobby, setHobby] = useState<any[]>([]);
+  console.log(hobby.toString());
   const handleRegister = (e: any) => {
     e.preventDefault();
     const gender = e.target[2].checked == "true" ? "male" : "female";
@@ -13,21 +16,21 @@ const Register = (props: Props) => {
     const regularHobby = e.target[4].checked == "true" ? "basketball" : "null";
     console.log(regularHobby);
     console.log(e);
-    // axios
-    //   .post("http://localhost:4000/users", {
-    //     firstName: e.target.firstName.value,
-    //     lastName: e.target.lastName.value,
-    //     sex: gender,
-    //     email: e.target.email.value,
-    //     password: e.target.confirmedPassword.value,
-    //     seekingFor: seekingGender,
-    //     hobby: "basketball",
-    //     age: 25,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => console.log(err));
+    axios
+      .post("http://localhost:4000/users", {
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        sex: gender,
+        email: e.target.email.value,
+        password: e.target.confirmedPassword.value,
+        seekingFor: seekingGender,
+        hobby: "basketball",
+        age: 25,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
     console.log(e.target.firstName.value);
     console.log(e.target.lastName.value);
     console.log(e.target[4].value == "on");
@@ -38,8 +41,10 @@ const Register = (props: Props) => {
     console.log(e);
     console.log(gender);
   };
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+      <pre>{JSON.stringify(hobby)}</pre>
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
@@ -106,39 +111,23 @@ const Register = (props: Props) => {
               Hobbies
             </label>
             <div className="flex gap-3">
-              <input
-                type="checkbox"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                name="Basketball"
-                id="button"
-                placeholder="Basketball"
-                required
-              />
-              <label htmlFor="">Basketball</label>
-              <input
-                type="checkbox"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                name="Football"
-                id="button"
-                required
-              />
-              <label htmlFor="">Football</label>
-              <input
-                type="checkbox"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                name="Vollyball"
-                id="button"
-                required
-              />
-              <label htmlFor="">Vollyball</label>
-              <input
-                type="checkbox"
-                className="border border-gray-300 shadow p-3 rounded mb-"
-                name="Reading book"
-                id="button"
-                required
-              />
-              <label htmlFor="">Reading book</label>
+              {data.map((e: any, i: number) => {
+                return (
+                  <>
+                    <input
+                      key={i}
+                      type="checkbox"
+                      value={hobby}
+                      name={e}
+                      className="border border-gray-300 shadow p-3 rounded mb-"
+                      onChange={() => {
+                        setHobby([...hobby, e]);
+                      }}
+                    />
+                    <label htmlFor="inlineCheckboxh1">{e}</label>
+                  </>
+                );
+              })}
             </div>
           </div>
           <div className="mt-1 flex flex-col items-center">
