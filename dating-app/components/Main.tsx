@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FcLike } from "react-icons/fc";
-import { FcDislike } from "react-icons/fc";
+import { FcSynchronize } from "react-icons/fc";
+import { GiBrokenHeart } from "react-icons/gi";
+import { BsFillHeartFill } from "react-icons/bs";
+import { FcFlashOn } from "react-icons/fc";
 import axios from "axios";
-
+import Logo from "./Logo";
 type Props = {};
 
 const Main = (props: Props) => {
@@ -11,10 +13,9 @@ const Main = (props: Props) => {
   useEffect(() => {
     if (window.localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
-      setUser(user);
-      console.log(user.data);
+      console.log(user.email);
       const randomUserData = axios
-        .get(`http://localhost:4000/users/getUser/${user.data}`)
+        .get(`http://localhost:4000/users/getUser/${user.email}`)
         .then((res) => setRandomUser(res.data));
     }
   }, []);
@@ -24,63 +25,43 @@ const Main = (props: Props) => {
     if (window.localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
       setUser(user);
-      console.log(user.data);
+      console.log(user.e);
       const randomUserData = axios
-        .get(`http://localhost:4000/users/getUser/${user.data}`)
+        .get(`http://localhost:4000/users/getUser/${user.email}`)
         .then((res) => setRandomUser(res.data));
     }
   };
 
   return (
-    <div className="bg-gradient-to-r grid place-items-center h-screen from-[#e46dbe] to-[#c49a63]  ">
-      <div className="place-items-center gap-10 h-screen flex">
+    <div className="min-h-screen bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+      <div>
         <div>
+          <Logo />
+        </div>
+        <p className="absolute left-[970px] top-[265px] text-orange-400 rounded-lg  bg-[#000] opacity-0 hover:opacity-75 w-[300px] h-[300px] hover:text-[#fff] hover:bg-text-[#fff]">
+          {randomUser?.data[0].firstName}
+        </p>
+        <div className="w-[350px] h-[350px]  rounded-lg  flex flex-col h-screen mx-auto items-center justify-center">
           <img
-            className="w-[250px] h-[250px] rounded-lg "
             src={randomUser?.data[0].imgURL}
+            className="w-[300px] h-[300px] rounded-lg shadow-xl hover:white"
             alt="product image"
           />
         </div>
-        <div className="w-full m-auto justify-center items-center max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-          <div className="px-5 pb-5">
-            <a href="#">
-              <h5 className="text-xl font-semibold tracking-tight mb-3 text-gray-900 dark:text-white">
-                {randomUser?.data[0].firstName}
-              </h5>
-            </a>
-
-            <div className="flex justify-between items-center">
-              <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                {randomUser?.data[0].age}
-              </span>
-              <a
-                href="#"
-                className="text-black bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-              >
-                Like
-              </a>
-              <a
-                href="#"
-                className="text-white bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-              >
-                <FcLike className="w-10 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-white bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-              >
-                <FcDislike className="w-10 h-5" />
-              </a>
-            </div>
-          </div>
+        <div className="flex flex-row mx-auto items-center justify-center gap-8">
+          <button className="border rounded-full w-[40px] h-[40px] bg-white content-center ">
+            <FcSynchronize className="content-center m-auto" />
+          </button>
+          <button className="border rounded-full w-[40px] h-[40px] bg-white ">
+            <GiBrokenHeart className="text-red-600 content-center m-auto " />
+          </button>
+          <button className="border rounded-full w-[40px] h-[40px] bg-white ">
+            <BsFillHeartFill className="text-green-600 content-center m-auto " />
+          </button>
+          <button className="border rounded-full w-[40px] h-[40px] bg-white ">
+            <FcFlashOn className="text-red-600 content-center m-auto " />
+          </button>
         </div>
-        <a
-          href="#"
-          onClick={handleNext}
-          className="text-black bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-        >
-          NEXT
-        </a>
       </div>
     </div>
   );

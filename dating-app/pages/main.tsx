@@ -9,10 +9,3 @@ const main = (props: Props) => {
 };
 
 export default main;
-// main.getInitialProps = async (ctx: any) => {
-//   const res = await axios.post("http://localhost:4000/users/getUser", {
-//     email: user.email,
-//     token: user.token,
-//   });
-//   return { res };
-// };

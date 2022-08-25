@@ -1,14 +1,28 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { FcBusinessman } from "react-icons/Fc";
+import { FcBusinessman, FcSelfServiceKiosk } from "react-icons/Fc";
 import { FcBusinesswoman } from "react-icons/Fc";
 import { useRouter } from "next/router";
+import LogoRegister from "../components/LogoRegister";
 type Props = {};
 
 const Register = (props: Props) => {
-  const data = ["Basketball", "Football", "Vollyball", "Reading book", "Music"];
+  const data = [
+    { name: "Basketball", id: "cat1" },
+    { name: "Football", id: "cat2" },
+    { name: "Vollyball", id: "cat3" },
+    { name: "Reading book", id: "cat4" },
+    { name: "Music", id: "cat5" },
+    { name: "Running", id: "cat6" },
+    { name: "Jogging", id: "cat7" },
+    { name: "Yoga", id: "cat8" },
+  ];
   const [hobby, setHobby] = useState<any[]>([]);
   const router = useRouter();
+  const hobbies = hobby.map((e) => {
+    return e.name;
+  });
+
   const handleRegister = (e: any) => {
     e.preventDefault();
 
@@ -23,7 +37,7 @@ const Register = (props: Props) => {
         email: e.target.email.value,
         password: e.target.confirmedPassword.value,
         seekingFor: seekingGender,
-        hobby: hobby.toString(),
+        hobby: hobbies.toString(),
         age: e.target.age.value,
       })
       .then((res) => {
@@ -37,14 +51,20 @@ const Register = (props: Props) => {
       })
       .catch((err) => console.log(err));
   };
-
+  // const handlechange = (e: any) => {
+  //   if (e.target.checked === true) {
+  //     setHobby([...hobby, e]);
+  //   } else {
+  //   }
+  //   console.log(e);
+  // };
+  console.log(hobby);
   return (
     <div className="min-h-screen  flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
-      <pre>{JSON.stringify(hobby)}</pre>
-      <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
-        Please register our dating app
-      </h2>
-      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4">
+      {/* <pre>{JSON.stringify(hobby)}</pre> */}
+      <LogoRegister />
+      <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10"></h2>
+      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4 mt-10">
         <form action="form" onSubmit={(e) => handleRegister(e)}>
           <div className="mb-5">
             <div>
@@ -136,27 +156,33 @@ const Register = (props: Props) => {
               Hobbies
             </label>
             <div className="inputCheckbox flex gap-2 flex-wrap justify-between">
-              {data.map((e: any, i: number) => {
-                return (
-                  <>
-                    <button
+              <ul className="nft-item-categories">
+                {data.map((e: any, i: number) => {
+                  return (
+                    <li
+                      className="nft-item-category-list hover:bg-gradient-to-r from-[#e46dbe] to-[#c49a63] "
                       key={i}
-                      type="button"
-                      value={hobby}
-                      name={e}
-                      className="bg-[#fff] border-gray-300 shadow p-3 mb- rounded-full  focus:ring-0"
-                      onClick={() => {
-                        setHobby([...hobby, e]);
-                      }}
                     >
-                      {e}
-                    </button>
-                    {/* <label htmlFor="inlineCheckboxh1" className="mr-[100px]">
-                      {e}
-                    </label> */}
-                  </>
-                );
-              })}
+                      <input
+                        key={i}
+                        type="checkbox"
+                        name={e.name}
+                        id={e.id}
+                        className=""
+                        value={hobby}
+                        onChange={(event) => {
+                          event.target.checked === true
+                            ? setHobby([...hobby, { name: e.name, id: e.id }])
+                            : hobby.pop();
+                        }}
+                      />
+                      <label htmlFor={e.id} className="text-gray-700">
+                        {e.name}
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
           <div className="mb-6">
@@ -233,3 +259,23 @@ const Register = (props: Props) => {
 };
 
 export default Register;
+
+{
+  /* <button
+                      key={i}
+                      type="button"
+                      value={hobby}
+                      name={e}
+                      className="bg-[#fff] border-gray-300 shadow p-3 mb- rounded-full  focus:ring-0"
+                      onClick={() => {
+                        setHobby([...hobby, e]);
+                      }}
+                    >
+                      {e}
+                    </button> */
+}
+{
+  /* <label htmlFor="inlineCheckboxh1" className="mr-[100px]">
+                      {e}
+                    </label> */
+}

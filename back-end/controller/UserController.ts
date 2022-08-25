@@ -114,9 +114,9 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
       //   sex: { $not: { $regex: findExistingUser[0].seekingFor } },
       // });
       res.status(200).json({
+        email: findExistingUser[0].email,
         success: true,
         token: token,
-        data: findExistingUser[0].email,
         message: "Амжилттай нэвтэрлээ",
       });
     } else {
