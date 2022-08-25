@@ -1,24 +1,77 @@
-/* /* .inputCheckbox label:nth-child(1) {
-  position: absolute;
-  left: 15px;
-} */
-/* .inputCheckbox input {
-  appearance: none;
-  width: 150px;
-  height: 50px;
-  border: 1px solid #f5f5f5;
-  border-radius: 20px 20px 20px 20px;
-  background: #f5f5f5;
+.nft-item-category-list input[type="checkbox"] + label {
+  display: inline-block;
+  margin: 0.2em 0;
+  cursor: pointer;
+  padding: 0.2em 0;
+  text-align: left;
+  font: normal normal normal 14px/14px;
+  font-weight: 500;
 }
-.inputCheckbox input:checked {
-  background-image: none;
-  background: rgb(116, 114, 114);
-  border: none;
+
+.nft-item-category-list input[type="checkbox"] {
+  display: none;
 }
-.inputCheckbox label {
-  top: 45%;
+
+.nft-item-category-list input[type="checkbox"] + label:before {
+  content: "✓";
+  display: none;
+  width: 0.5em;
+  height: 1em;
+  padding-left: 0.1em;
+  padding-bottom: 0.1em;
+  margin-right: 0.5em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: 0.2s;
+  color: #fff;
+  border-radius: 100%;
+  background-color: #8e8e93;
 }
-.inputCheckbox label:first-child {
-  top: 150px;
-  position: absolute;
-} */
+
+.nft-item-category-list input[type="checkbox"] + label:active:before {
+  transform: scale(0);
+  color: #fff;
+}
+
+.nft-item-category-list input[type="checkbox"]:checked + label:before {
+  background-color: MediumSeaGreen;
+  border-color: MediumSeaGreen;
+  color: #fff;
+}
+
+.nft-item-category-list input[type="checkbox"]:disabled + label:before {
+  transform: scale(1);
+  border-color: #aaa;
+}
+
+.nft-item-category-list input[type="checkbox"]:checked:disabled + label:before {
+  transform: scale(1);
+  background-color: #bfb;
+  border-color: #bfb;
+}
+
+.nft-item-category-list input[type="checkbox"]:checked + label {
+  color: #ffffff;
+  transition: all 0.2s linear;
+}
+
+ul.nft-item-categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 15px;
+  align-items: center;
+}
+
+li.nft-item-category-list {
+  background: #e46dbe 0% 0% no-repeat padding-box;
+  border-radius: 50px;
+  width: 120px;
+  height: 41px;
+  text-align: center;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

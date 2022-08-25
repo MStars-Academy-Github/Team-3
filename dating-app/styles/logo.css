@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff&display=swap");
+
+.logo .dating {
+  font-family: DynaPuff;
+  font-size: 40px;
+  font-weight: 600;
+}
+.logo .web {
+  font-family: DynaPuff;
+  font-size: 40px;
+  font-weight: 600;
+}
+.logo {
+  position: absolute;
+  display: flex;
+  top: 2%;
+  left: 44%;
+  margin-top: 15px;
+  overflow: hidden;
+}
+.logo .logoIcon {
+  color: red;
+  width: 70px;
+  height: 70px;
+}
+.logo1 .dating {
+  font-family: DynaPuff;
+  font-size: 40px;
+  font-weight: 600;
+}
+.logo1 .web {
+  font-family: DynaPuff;
+  font-size: 40px;
+  font-weight: 600;
+}
+.logo1 {
+  position: absolute;
+  display: flex;
+  top: 20%;
+  left: 45%;
+  margin-top: 15px;
+  overflow: hidden;
+}
+.logo1 .logoIcon {
+  color: red;
+  width: 70px;
+  height: 70px;
+}

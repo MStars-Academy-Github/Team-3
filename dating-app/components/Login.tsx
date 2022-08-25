@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Logo from "../components/Logo";
 
 type Props = {};
 
 const Login = (props: Props) => {
   const [error, setError] = useState();
+  const [local, setLocal] = useState();
   const router = useRouter();
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -17,23 +19,31 @@ const Login = (props: Props) => {
       .then((res) => {
         if (res.data.success === true) {
           router.push("/main");
-          console.log(res.data.data);
+          const user = {
+            email: res.data.email,
+            token: res.data.token,
+          };
+          localStorage.setItem("user", JSON.stringify(user));
+          setLocal(res.data.message);
         } else {
-          console.log(res.data.message);
+          setError(res.data.message);
         }
       })
       .catch((err) => {
         console.error(err);
-        setError(err.message);
       });
   };
 
+  const handleRegister = () => {
+    router.push("/register");
+  };
   //<iframe src="https://giphy.com/embed/4N1wOi78ZGzSB6H7vK" width="480" height="440" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/friends-sad-bury-4N1wOi78ZGzSB6H7vK">via GIPHY</a></p>
 
   return (
     <div className="min-h-screen flex items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63] ">
+      <Logo />
       <div className="w-full bg-[url('https://media3.giphy.com/media/4N1wOi78ZGzSB6H7vK/giphy.gif?cid=ecf05e47hoedf6xnhy5u599gjvr9a14xn2zl2mrbzvn3pn4k&rid=giphy.gif&ct=g' )]">
-        <h2 className="text-center text-blue-400  font-bold text-2xl uppercase mb-10">
+        <h2 className="text-center text-dark-400  font-bold text-2xl uppercase mb-10 font-[DynaPuff]">
           Please Login Dating App
         </h2>
         <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4">
@@ -66,8 +76,17 @@ const Login = (props: Props) => {
                 placeholder="Password"
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               />
+              <p
+                className="flex justify-end text-sm text-red-400 mt-2 hover:underline"
+                onClick={handleRegister}
+              >
+                REGISTER
+              </p>
               <pre className="text-sm text-red-400 mt-2">
                 {JSON.stringify(error)}
+              </pre>
+              <pre className="text-sm text-red-400 mt-2">
+                {JSON.stringify(local)}
               </pre>
             </div>
 
