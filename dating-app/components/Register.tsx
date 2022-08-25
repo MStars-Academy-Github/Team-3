@@ -51,20 +51,15 @@ const Register = (props: Props) => {
       })
       .catch((err) => console.log(err));
   };
-  // const handlechange = (e: any) => {
-  //   if (e.target.checked === true) {
-  //     setHobby([...hobby, e]);
-  //   } else {
-  //   }
-  //   console.log(e);
-  // };
+  
   console.log(hobby);
   return (
-    <div className="min-h-screen  flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+    // bg-gradient-to-r from-[#e46dbe] to-[#c49a63]
+    <div className="min-h-screen  flex flex-col items-center ">
       {/* <pre>{JSON.stringify(hobby)}</pre> */}
       <LogoRegister />
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10"></h2>
-      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4 mt-10">
+      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-2/4 mt-10">
         <form action="form" onSubmit={(e) => handleRegister(e)}>
           <div className="mb-5">
             <div>

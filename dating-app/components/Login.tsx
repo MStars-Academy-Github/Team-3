@@ -40,7 +40,8 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+    // bg-gradient-to-r from-[#e46dbe] to-[#c49a63]
+    <div className="min-h-screen">
       <div className="ml-200px">
         <Logo />
       </div>
@@ -48,7 +49,7 @@ const Login = (props: Props) => {
         <h2 className="text-center text-dark-400  font-bold text-2xl uppercase mb-10 font-[DynaPuff]">
           Please Login Dating App
         </h2>
-        <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4">
+        <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-2/4 xl:w-2/4">
           <form action="form" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label

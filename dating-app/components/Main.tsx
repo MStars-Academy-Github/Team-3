@@ -5,6 +5,7 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { FcFlashOn } from "react-icons/fc";
 import axios from "axios";
 import Logo from "./Logo";
+
 type Props = {};
 
 const Main = (props: Props) => {
@@ -33,23 +34,52 @@ const Main = (props: Props) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
-      <div>
-        <div>
-          <Logo />
+    <div className="">
+      {/* <Logo /> */}
+
+      <div className="flex flex-row">
+        <div className="profile-card">
+          <div className="profile-card-header">
+            <div className="profile-image">
+              <img
+                src={randomUser?.data[0]?.imgURL}
+                alt={randomUser?.data[0]?.imgURL}
+              />
+            </div>
+
+            <div className="profile-info">
+              <h3 className="profile-name">Dev Ed</h3>
+              <p className="profile-desc">Developer/Conent Creator</p>
+            </div>
+          </div>
+
+          <div className="profile-card-body">
+            <ul className="status">
+              <li>
+                <span className="status-value">532</span>
+                <span className="status-text">Posts</span>
+              </li>
+
+              <li>
+                <span className="status-value">1.5m</span>
+                <span className="status-text">Followers</span>
+              </li>
+
+              <li>
+                <span className="status-value">423</span>
+                <span className="status-text">Following</span>
+              </li>
+            </ul>
+
+            <div className="action">
+              <button className="btn btn-pink">Follow</button>
+              <button className="btn btn-gray-outline">Message</button>
+            </div>
+          </div>
         </div>
-        <p className="absolute left-[970px] top-[265px] text-orange-400 rounded-lg  bg-[#000] opacity-0 hover:opacity-75 w-[300px] h-[300px] hover:text-[#fff] hover:bg-text-[#fff]">
-          {randomUser?.data[0].firstName}
-        </p>
-        <div className="w-[350px] h-[350px]  rounded-lg  flex flex-col h-screen mx-auto items-center justify-center">
-          <img
-            src={randomUser?.data[0].imgURL}
-            className="w-[300px] h-[300px] rounded-lg shadow-xl hover:white"
-            alt="product image"
-          />
-        </div>
-        <div className="flex flex-row mx-auto items-center justify-center gap-8">
-          <button className="border rounded-full w-[40px] h-[40px] bg-white content-center ">
+
+        <div className="flex mx-auto items-center justify-center gap-8">
+          <button className="border rounded-full w-[40px] h-[40px] bg-white content-center hover: ">
             <FcSynchronize className="content-center m-auto" />
           </button>
           <button className="border rounded-full w-[40px] h-[40px] bg-white ">
@@ -63,6 +93,9 @@ const Main = (props: Props) => {
           </button>
         </div>
       </div>
+      <div className="slider-thumb"></div>
+      <div className="slider-thumb1"></div>
+      <div className="slider-thumb2"></div>
     </div>
   );
 };
