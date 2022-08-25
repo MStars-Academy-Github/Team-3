@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -7,7 +7,7 @@ type Props = {};
 const Login = (props: Props) => {
   const [error, setError] = useState();
   const router = useRouter();
-  const handleSubmit = (e: any) => {
+  const handleSubmit = useCallback((e: any) => {
     e.preventDefault();
     const email = e.target.username.value;
     const password = e.target.password.value;
@@ -17,7 +17,11 @@ const Login = (props: Props) => {
       .then((res) => {
         if (res.data.success === true) {
           router.push("/main");
-          console.log(res.data.data);
+          const data = {
+            data: res.data.data,
+            token: res.data.token,
+          };
+          window.localStorage.setItem("user", JSON.stringify(data));
         } else {
           console.log(res.data.message);
         }
@@ -26,7 +30,7 @@ const Login = (props: Props) => {
         console.error(err);
         setError(err.message);
       });
-  };
+  }, []);
 
   //<iframe src="https://giphy.com/embed/4N1wOi78ZGzSB6H7vK" width="480" height="440" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/friends-sad-bury-4N1wOi78ZGzSB6H7vK">via GIPHY</a></p>
 

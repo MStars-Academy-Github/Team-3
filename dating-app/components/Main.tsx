@@ -1,49 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FcLike } from "react-icons/fc";
 import { FcDislike } from "react-icons/fc";
 import axios from "axios";
+
 type Props = {};
 
 const Main = (props: Props) => {
-  const [user, setUser] = useState<any>();
   const [randomUser, setRandomUser] = useState<any>();
+  const [user, setUser] = useState();
   useEffect(() => {
-    axios
-      .post("http://localhost:4000/users/getUser")
-      .then((res) => {
-        if (res.status === 200) {
-          setUser(res.data.data);
-        } else {
-          console.log(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        // setError(err.message);
-      });
+    if (window.localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user") || "user");
+      setUser(user);
+      console.log(user.data);
+      const randomUserData = axios
+        .get(`http://localhost:4000/users/getUser/${user.data}`)
+        .then((res) => setRandomUser(res.data));
+    }
   }, []);
+  console.log(randomUser);
 
   const handleNext = () => {
-    axios
-      .get("http://localhost:4000/users")
-      .then((res) => {
-        if (res.status === 200) {
-          setRandomUser(res.data.data);
-        } else {
-          console.log(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        // setError(err.message);
-      });
+    if (window.localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user") || "user");
+      setUser(user);
+      console.log(user.data);
+      const randomUserData = axios
+        .get(`http://localhost:4000/users/getUser/${user.data}`)
+        .then((res) => setRandomUser(res.data));
+    }
   };
-
-  // const random = randomUser.map((e,i)=>{
-  //     Math.random()
-  //   })
-
-  console.log(user && user);
 
   return (
     <div className="bg-gradient-to-r grid place-items-center h-screen from-[#e46dbe] to-[#c49a63]  ">
@@ -58,20 +44,20 @@ const Main = (props: Props) => {
           <a href="#">
             <img
               className="p-8 rounded-t-lg"
-              src="https://i.dailymail.co.uk/1s/2019/11/17/10/21115178-7694477-image-a-8_1573986332310.jpg"
+              src={randomUser?.data[0].imgURL}
               alt="product image"
             />
           </a>
           <div className="px-5 pb-5">
             <a href="#">
               <h5 className="text-xl font-semibold tracking-tight mb-3 text-gray-900 dark:text-white">
-                {randomUser?.firstName}
+                {randomUser?.data[0].firstName}
               </h5>
             </a>
 
             <div className="flex justify-between items-center">
               <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                {randomUser?.age}
+                {randomUser?.data[0].age}
               </span>
               <a
                 href="#"
