@@ -3,23 +3,36 @@ import bcrypt from "bcryptjs";
 import express, { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
-  const findExistingUser = await Users.find({ email: req.body });
+  const { email } = req.body;
+  const findExistingUser = await Users.find({ email: email });
+
   if (findExistingUser) {
-    const userInterestData = await Users.find({
-      hobby: { $regex: findExistingUser[0].hobby },
-      sex: { $not: { $regex: findExistingUser[0].seekingFor } },
-    });
+    const randomAggergate = await Users.aggregate([
+      { $match: { hobby: { $in: [findExistingUser[0].hobby] } } },
+      { $match: { sex: { $in: [findExistingUser[0].seekingFor] } } },
+      { $sample: { size: 1 } },
+    ]);
+    console.log(randomAggergate);
     res.status(200).json({
       success: true,
-      data: userInterestData,
+      data: randomAggergate,
     });
   }
 };
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const body = req.body;
   console.log(body);
-  const { firstName, lastName, age, sex, hobby, email, password, seekingFor } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    age,
+    sex,
+    hobby,
+    email,
+    password,
+    seekingFor,
+    imgURL,
+  } = req.body;
   console.log(lastName);
   const foundUser = await Users.findOne({
     firstName: firstName,
@@ -37,6 +50,8 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const token = jwt.sign({ firstName: firstName }, tokenKey, {
       expiresIn: "2h",
     });
+    console.log(hashedPassword);
+    console.log(token);
     const createdUser = await Users.create({
       firstName,
       lastName,
@@ -46,8 +61,8 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       email,
       hashedPassword,
       seekingFor,
+      imgURL,
     });
-
     if (createdUser) {
       res.json({
         success: true,
@@ -64,18 +79,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     }
   }
 };
-const intrestUser = async (req: Request, res: Response, next: NextFunction) => {
-  const { hobby } = req.body;
-  const foundSimilarIntrest = await Users.findOne({ hobby: { $regex: hobby } });
-  console.log(hobby);
-  console.log(foundSimilarIntrest);
-  if (foundSimilarIntrest) {
-    res.json({
-      success: true,
-      data: foundSimilarIntrest,
-    });
-  }
-};
+
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const params = req.body;
@@ -115,6 +119,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
         success: true,
         data: userInterestData,
         token: token,
+        message: "Амжилттай нэвтэрлээ",
       });
     } else {
       res.status(401).json({
@@ -127,4 +132,4 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
-export default { getUsers, createUser, intrestUser, loginUser };
+export default { getUsers, createUser, loginUser };
