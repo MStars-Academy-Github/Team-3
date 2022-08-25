@@ -24,7 +24,7 @@ const Register = (props: Props) => {
         password: e.target.confirmedPassword.value,
         seekingFor: seekingGender,
         hobby: hobby.toString(),
-        age: 25,
+        age: e.target.age.value,
       })
       .then((res) => {
         if (res.data.success === true) {
@@ -158,6 +158,18 @@ const Register = (props: Props) => {
                 );
               })}
             </div>
+          </div>
+          <div className="mb-6">
+            <label htmlFor="Age" className="block mb-2 font-bold text-gray-600">
+              Age
+            </label>
+            <input
+              type="Age"
+              name="age"
+              className="border border-gray-300 shadow p-3 w-full rounded mb-"
+              placeholder="25"
+              required
+            />
           </div>
           <div className="mb-6">
             <label

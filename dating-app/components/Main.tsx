@@ -9,7 +9,7 @@ const Main = (props: Props) => {
   const [randomUser, setRandomUser] = useState<any>();
   useEffect(() => {
     axios
-      .get("http://localhost:4000/users")
+      .post("http://localhost:4000/users/getUser")
       .then((res) => {
         if (res.status === 200) {
           setUser(res.data.data);
