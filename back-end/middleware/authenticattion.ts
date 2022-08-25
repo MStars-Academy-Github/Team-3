@@ -15,7 +15,7 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   }
   try {
     const decoded = jwt.verify(token, tokenKey);
-    req.body = decoded;
+    req.body.email = decoded;
   } catch (err) {
     return res.status(401).json({
       success: false,
@@ -25,4 +25,4 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
-module.exports = verifyToken;
+export default verifyToken;
