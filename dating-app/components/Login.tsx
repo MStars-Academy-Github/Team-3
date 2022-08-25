@@ -16,7 +16,8 @@ const Login = (props: Props) => {
       .post("http://localhost:4000/users/login", { email, password })
       .then((res) => {
         if (res.data.success === true) {
-          router.push("/main");
+          // router.push("/main");
+          console.log(res);
         } else {
           console.log(res.data.message);
         }
