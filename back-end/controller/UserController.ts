@@ -1,11 +1,10 @@
 import Users from "../model/users";
 import bcrypt from "bcryptjs";
-import express, { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
   const findExistingUser = await Users.find({ email: email });
-
   if (findExistingUser) {
     const randomAggergate = await Users.aggregate([
       { $match: { hobby: { $in: [findExistingUser[0].hobby] } } },
@@ -20,8 +19,6 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
-  const body = req.body;
-  console.log(body);
   const {
     firstName,
     lastName,
@@ -33,12 +30,12 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     seekingFor,
     imgURL,
   } = req.body;
-  console.log(lastName);
+
   const foundUser = await Users.findOne({
     firstName: firstName,
     lastName: lastName,
   });
-  console.log(foundUser);
+
   if (foundUser) {
     res.json({
       success: false,
@@ -50,8 +47,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const token = jwt.sign({ firstName: firstName }, tokenKey, {
       expiresIn: "2h",
     });
-    console.log(hashedPassword);
-    console.log(token);
+
     const createdUser = await Users.create({
       firstName,
       lastName,
@@ -117,7 +113,6 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
       });
       res.status(200).json({
         success: true,
-        data: userInterestData,
         token: token,
         message: "Амжилттай нэвтэрлээ",
       });

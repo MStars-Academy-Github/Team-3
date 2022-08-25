@@ -22,6 +22,3 @@ app.use(
   })
 );
 app.use("/users", userRouter);
-// app.listen(PORT, () => {
-//   console.log(`Server is running ${PORT}`);
-// });
