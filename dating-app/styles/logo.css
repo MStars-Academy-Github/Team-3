@@ -10,13 +10,10 @@
   font-size: 40px;
   font-weight: 600;
 }
-.logo {
-  position: absolute;
+.logo1 {
   display: flex;
-  top: 2%;
-  left: 44%;
-  margin-top: 15px;
-  overflow: hidden;
+  margin-left: 975px;
+  padding-top: 170px;
 }
 .logo .logoIcon {
   color: red;
@@ -33,14 +30,7 @@
   font-size: 40px;
   font-weight: 600;
 }
-.logo1 {
-  position: absolute;
-  display: flex;
-  top: 20%;
-  left: 45%;
-  margin-top: 15px;
-  overflow: hidden;
-}
+
 .logo1 .logoIcon {
   color: red;
   width: 70px;

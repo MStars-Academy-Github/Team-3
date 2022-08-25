@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Logo from "../components/Logo";
@@ -23,6 +23,7 @@ const Login = (props: Props) => {
             email: res.data.email,
             token: res.data.token,
           };
+          console.log("dsfasdf");
           localStorage.setItem("user", JSON.stringify(user));
           setLocal(res.data.message);
         } else {
@@ -37,11 +38,12 @@ const Login = (props: Props) => {
   const handleRegister = () => {
     router.push("/register");
   };
-  //<iframe src="https://giphy.com/embed/4N1wOi78ZGzSB6H7vK" width="480" height="440" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/friends-sad-bury-4N1wOi78ZGzSB6H7vK">via GIPHY</a></p>
 
   return (
-    <div className="min-h-screen flex items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63] ">
-      <Logo />
+    <div className="min-h-screen bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+      <div className="ml-200px">
+        <Logo />
+      </div>
       <div className="w-full bg-[url('https://media3.giphy.com/media/4N1wOi78ZGzSB6H7vK/giphy.gif?cid=ecf05e47hoedf6xnhy5u599gjvr9a14xn2zl2mrbzvn3pn4k&rid=giphy.gif&ct=g' )]">
         <h2 className="text-center text-dark-400  font-bold text-2xl uppercase mb-10 font-[DynaPuff]">
           Please Login Dating App
