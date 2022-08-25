@@ -1,34 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FcLike } from "react-icons/fc";
 import { FcDislike } from "react-icons/fc";
 import axios from "axios";
+import { json } from "stream/consumers";
 type Props = {};
 
 const Main = (props: Props) => {
-  const [user, setUser] = useState<any>();
+  // const [user, setUser] = useState<any>();
   const [randomUser, setRandomUser] = useState<any>();
-  useEffect(() => {
+  // let user = {};
+  // useEffect(() => {
+  //   axios
+  //     .post("http://localhost:4000/users/getUser", {
+  //       email: user.email,
+  //       token: user.token,
+  //     })
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         setUser(res.data.data);
+  //       } else {
+  //         console.log(res.data.message);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       // setError(err.message);
+  //     });
+  // }, []);
+  // const dada = useCallback(() => {
+  //   // if (localStorage.getItem("user")) {
+  //   //   setUser(JSON.parse(localStorage.getItem("user") || ""));
+  //   // }
+  // });
+  // setInterval(() => (user = localStorage.getItem("user")), 2000);
+
+  // console.log(user && user);
+
+  const handleNext = () => {
     axios
       .post("http://localhost:4000/users/getUser")
       .then((res) => {
         if (res.status === 200) {
-          setUser(res.data.data);
-        } else {
-          console.log(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        // setError(err.message);
-      });
-  }, []);
-
-  const handleNext = () => {
-    axios
-      .get("http://localhost:4000/users")
-      .then((res) => {
-        if (res.status === 200) {
           setRandomUser(res.data.data);
+          console.log(res.data.data, "----------");
         } else {
           console.log(res.data.message);
         }
@@ -39,11 +53,11 @@ const Main = (props: Props) => {
       });
   };
 
-  // const random = randomUser.map((e,i)=>{
-  //     Math.random()
-  //   })
+  // const random = randomUser.map((e, i) => {
+  //   Math.random();
+  // });
 
-  console.log(user && user);
+  // console.log(user && user);
 
   return (
     <div className="bg-gradient-to-r grid place-items-center h-screen from-[#e46dbe] to-[#c49a63]  ">
