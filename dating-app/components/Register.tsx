@@ -2,20 +2,19 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FcBusinessman } from "react-icons/Fc";
 import { FcBusinesswoman } from "react-icons/Fc";
-
+import { useRouter } from "next/router";
 type Props = {};
 
 const Register = (props: Props) => {
   const data = ["Basketball", "Football", "Vollyball", "Reading book", "Music"];
   const [hobby, setHobby] = useState<any[]>([]);
-  console.log(hobby.toString());
+  const router = useRouter();
   const handleRegister = (e: any) => {
     e.preventDefault();
+
     const gender = e.target[2].checked == "true" ? "male" : "female";
     const seekingGender = e.target[8].checked == "true" ? "male" : "female";
-    const regularHobby = e.target[4].checked == "true" ? "basketball" : "null";
-    console.log(regularHobby);
-    console.log(e);
+
     axios
       .post("http://localhost:4000/users", {
         firstName: e.target.firstName.value,
@@ -25,30 +24,27 @@ const Register = (props: Props) => {
         password: e.target.confirmedPassword.value,
         seekingFor: seekingGender,
         hobby: hobby.toString(),
-        age: 25,
+        age: e.target.age.value,
       })
       .then((res) => {
+        if (res.data.success === true) {
+          router.push("/main");
+          console.log(res.data.data);
+        } else {
+          console.log(res.data.message);
+        }
         console.log(res);
       })
       .catch((err) => console.log(err));
-    console.log(e.target.firstName.value);
-    console.log(e.target.lastName.value);
-    console.log(e.target[4].value == "on");
-    console.log(e.target.email.value);
-    console.log(e.target.confirmedPassword.value);
-    console.log(e.target[2].value);
-
-    console.log(e);
-    console.log(gender);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
+    <div className="min-h-screen  flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
       <pre>{JSON.stringify(hobby)}</pre>
       <h2 className="text-center text-blue-400 font-bold text-2xl uppercase mb-10 mt-10">
         Please register our dating app
       </h2>
-      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2 xl:w-1/4">
         <form action="form" onSubmit={(e) => handleRegister(e)}>
           <div className="mb-5">
             <div>
@@ -83,69 +79,97 @@ const Register = (props: Props) => {
                 required
               />
             </div>
-            <div className=" mt-1 flex flex-col items-center justify-center">
-              <label
-                htmlFor="gender"
-                className="block mb-2 font-bold text-gray-600"
-              >
-                Gender
-              </label>
-
-              <div className="flex">
-                <input type="radio" name="gender" required />
-                <label htmlFor="male" className="block font-bold text-gray-600">
-                  <FcBusinessman className="w-6 h-6 " />
-                </label>
-                <input type="radio" name="gender" required />
+            <div className="flex justify-around ">
+              <div className=" mt-1 flex flex-col items-center ">
                 <label
-                  htmlFor="female"
-                  className="block font-bold text-gray-600"
+                  htmlFor="gender"
+                  className="block  font-bold text-gray-600"
                 >
-                  <FcBusinesswoman className="w-6 h-6 " />
+                  Gender
                 </label>
+                <div className="flex justify-between">
+                  <input type="radio" name="gender" required />
+                  <label
+                    htmlFor="male"
+                    className="block font-bold text-gray-600"
+                  >
+                    <FcBusinessman className="w-6 h-6 " />
+                  </label>
+                  <input type="radio" name="gender" required />
+                  <label
+                    htmlFor="female"
+                    className="block font-bold text-gray-600"
+                  >
+                    <FcBusinesswoman className="w-6 h-6 " />
+                  </label>
+                </div>
+              </div>
+              <div className="mt-1 flex flex-col items-center">
+                <label
+                  htmlFor="gender"
+                  className="block font-bold text-gray-600 "
+                >
+                  Seeking for
+                </label>
+                <div className="flex justify-between">
+                  <input type="radio" name="Seeking" required />
+                  <label
+                    htmlFor="male"
+                    className="block font-bold text-gray-600"
+                  >
+                    <FcBusinessman className="w-6 h-6 " />
+                  </label>
+                  <input type="radio" name="Seeking" required />
+                  <label
+                    htmlFor="female"
+                    className="block font-bold  text-gray-600"
+                  >
+                    <FcBusinesswoman className="w-6 h-6 " />
+                  </label>
+                </div>
               </div>
             </div>
           </div>
+
           <div className="mb-6">
             <label className="block mb-2 font-bold text-gray-600">
               Hobbies
             </label>
-            <div className="flex gap-3">
+            <div className="inputCheckbox flex gap-2 flex-wrap justify-between">
               {data.map((e: any, i: number) => {
                 return (
-                  <div key={i}>
-                    <input
-                      type="checkbox"
+                  <>
+                    <button
+                      key={i}
+                      type="button"
                       value={hobby}
                       name={e}
-                      className="border border-gray-300 shadow p-3 rounded mb-"
-                      onChange={() => {
+                      className="bg-[#fff] border-gray-300 shadow p-3 mb- rounded-full  focus:ring-0"
+                      onClick={() => {
                         setHobby([...hobby, e]);
                       }}
-                    />
-                    <label htmlFor="inlineCheckboxh1">{e}</label>
-                  </div>
+                    >
+                      {e}
+                    </button>
+                    {/* <label htmlFor="inlineCheckboxh1" className="mr-[100px]">
+                      {e}
+                    </label> */}
+                  </>
                 );
               })}
             </div>
           </div>
-          <div className="mt-1 flex flex-col items-center">
-            <label htmlFor="gender" className="block font-bold text-gray-600 ">
-              Seeking for
+          <div className="mb-6">
+            <label htmlFor="Age" className="block mb-2 font-bold text-gray-600">
+              Age
             </label>
-            <div className="flex justify-between">
-              <input type="radio" name="genderSeeking" required />
-              <label htmlFor="male" className="block font-bold text-gray-600">
-                <FcBusinessman className="w-6 h-6 " />
-              </label>
-              <input type="radio" name="genderSeeking" required />
-              <label
-                htmlFor="female"
-                className="block font-bold  text-gray-600"
-              >
-                <FcBusinesswoman className="w-6 h-6 " />
-              </label>
-            </div>
+            <input
+              type="Age"
+              name="age"
+              className="border border-gray-300 shadow p-3 w-full rounded mb-"
+              placeholder="25"
+              required
+            />
           </div>
           <div className="mb-6">
             <label
