@@ -34,20 +34,14 @@ const Main = (props: Props) => {
   return (
     <div className="bg-gradient-to-r grid place-items-center h-screen from-[#e46dbe] to-[#c49a63]  ">
       <div className="place-items-center gap-10 h-screen flex">
-        <a
-          href="#"
-          className="text-black bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-        >
-          BACK
-        </a>
+        <div>
+          <img
+            className="w-[250px] h-[250px] rounded-lg "
+            src={randomUser?.data[0].imgURL}
+            alt="product image"
+          />
+        </div>
         <div className="w-full m-auto justify-center items-center max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <img
-              className="p-8 rounded-t-lg"
-              src={randomUser?.data[0].imgURL}
-              alt="product image"
-            />
-          </a>
           <div className="px-5 pb-5">
             <a href="#">
               <h5 className="text-xl font-semibold tracking-tight mb-3 text-gray-900 dark:text-white">
