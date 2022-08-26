@@ -32,6 +32,7 @@ const UsersSchema = new Schema({
   seekingFor: {
     type: String,
   },
+  interest: [String],
 });
 const Users = mongoose.model("users", UsersSchema);
 
