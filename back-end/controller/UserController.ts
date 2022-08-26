@@ -6,10 +6,15 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   const email = req.params.email;
   console.log(email);
   const findExistingUser = await Users.find({ email: email });
-  console.log(findExistingUser);
+  console.log(findExistingUser[0].hobby);
+  console.log(findExistingUser[0].interest);
   if (findExistingUser) {
     const randomAggergate = await Users.aggregate([
-      // { $match: { hobby: { $in: [findExistingUser[0].hobby] } } },
+      {
+        $match: {
+          interest: { $ne: findExistingUser[0].interest },
+        },
+      },
       { $match: { sex: { $in: [findExistingUser[0].seekingFor] } } },
       { $sample: { size: 1 } },
     ]);
@@ -18,6 +23,27 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
       success: true,
       data: randomAggergate,
     });
+  }
+};
+const notFilerting = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { interest, id } = req.body;
+  console.log(interest);
+  try {
+    const insertUninterested = await Users.updateOne(
+      { _id: id },
+      { $push: { interest: interest } }
+    );
+    res.status(200).json({
+      success: true,
+      message: "Амжилттай",
+    });
+    next();
+  } catch (err) {
+    console.log(err);
   }
 };
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -130,4 +156,4 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
-export default { getUsers, createUser, loginUser };
+export default { getUsers, createUser, loginUser, notFilerting };
