@@ -1,122 +1,127 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FcLike } from "react-icons/fc";
-import { FcDislike } from "react-icons/fc";
+import { FcSynchronize } from "react-icons/fc";
+import { GiBrokenHeart } from "react-icons/gi";
+import { BsFillHeartFill } from "react-icons/bs";
+import { FcFlashOn } from "react-icons/fc";
 import axios from "axios";
-import { json } from "stream/consumers";
+import Logo from "./Logo";
+import { Card } from "flowbite-react";
+
 type Props = {};
 
 const Main = (props: Props) => {
-  // const [user, setUser] = useState<any>();
   const [randomUser, setRandomUser] = useState<any>();
-  // let user = {};
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:4000/users/getUser", {
-  //       email: user.email,
-  //       token: user.token,
-  //     })
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         setUser(res.data.data);
-  //       } else {
-  //         console.log(res.data.message);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       // setError(err.message);
-  //     });
-  // }, []);
-  // const dada = useCallback(() => {
-  //   // if (localStorage.getItem("user")) {
-  //   //   setUser(JSON.parse(localStorage.getItem("user") || ""));
-  //   // }
-  // });
-  // setInterval(() => (user = localStorage.getItem("user")), 2000);
-
-  // console.log(user && user);
+  const [user, setUser] = useState();
+  useEffect(() => {
+    if (window.localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user") || "user");
+      console.log(user.email);
+      const randomUserData = axios
+        .get(`http://localhost:4000/users/getUser/${user.email}`)
+        .then((res) => setRandomUser(res.data));
+    }
+  }, []);
+  console.log(randomUser);
 
   const handleNext = () => {
-    axios
-      .post("http://localhost:4000/users/getUser")
-      .then((res) => {
-        if (res.status === 200) {
-          setRandomUser(res.data.data);
-          console.log(res.data.data, "----------");
-        } else {
-          console.log(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        // setError(err.message);
-      });
+    if (window.localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user") || "user");
+      setUser(user);
+      console.log(user.e);
+      const randomUserData = axios
+        .get(`http://localhost:4000/users/getUser/${user.email}`)
+        .then((res) => setRandomUser(res.data));
+    }
   };
-
-  // const random = randomUser.map((e, i) => {
-  //   Math.random();
-  // });
-
-  // console.log(user && user);
+  const handleDislike = () => {};
 
   return (
-    <div className="bg-gradient-to-r grid place-items-center h-screen from-[#e46dbe] to-[#c49a63]  ">
-      <div className="place-items-center gap-10 h-screen flex">
-        <a
-          href="#"
-          className="text-black bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-        >
-          BACK
-        </a>
-        <div className="w-full m-auto justify-center items-center max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <img
-              className="p-8 rounded-t-lg"
-              src="https://i.dailymail.co.uk/1s/2019/11/17/10/21115178-7694477-image-a-8_1573986332310.jpg"
-              alt="product image"
-            />
-          </a>
-          <div className="px-5 pb-5">
-            <a href="#">
-              <h5 className="text-xl font-semibold tracking-tight mb-3 text-gray-900 dark:text-white">
-                {randomUser?.firstName}
-              </h5>
-            </a>
-
-            <div className="flex justify-between items-center">
-              <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                {randomUser?.age}
-              </span>
-              <a
-                href="#"
-                className="text-black bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-              >
-                Like
-              </a>
-              <a
-                href="#"
-                className="text-white bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-              >
-                <FcLike className="w-10 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-white bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-              >
-                <FcDislike className="w-10 h-5" />
-              </a>
+    <>
+      {" "}
+      <Logo />
+      <div className="flex items-center justify-center w-[100vw] h-[70vh]">
+        <div className="profile-card  ">
+          <div className="profile-card-header">
+            <div className="profile-image">
+              <img
+                src={randomUser?.data[0]?.imgURL}
+                alt={randomUser?.data[0]?.imgURL}
+              />
+            </div>
+            <div className="profile-info content-center">
+              <h3 className="profile-name font-[DynaPuff]">
+                {randomUser?.data[0].firstName +
+                  " " +
+                  randomUser?.data[0].lastName}
+              </h3>
+              <p className="profile-desc font-[DynaPuff]">
+                I like {randomUser?.data[0].hobby}
+              </p>
             </div>
           </div>
+
+          <div className="profile-card-body">
+            <ul className="status flex flex-col gap-2">
+              <li>
+                <span className="status-value font-[DynaPuff] text-red-400">
+                  Gender :{" "}
+                </span>
+                <span className="status-text font-[DynaPuff] text-[#212121]">
+                  {randomUser?.data[0].sex}
+                </span>
+              </li>
+              <li>
+                <span className="status-value font-[DynaPuff] text-[#c49a63]">
+                  i'm seeking for :{" "}
+                </span>
+                <span className="status-text font-[DynaPuff] ">
+                  {randomUser?.data[0].seekingFor}
+                </span>
+              </li>
+              <li>
+                <span className="status-value font-[DynaPuff] text-[#e46dbe]">
+                  Age :{" "}
+                </span>
+                <span className="status-text font-[DynaPuff] text-[#212121]">
+                  {randomUser?.data[0].age}
+                </span>
+              </li>
+              <li>
+                <span className="status-value font-[DynaPuff] text-red-600">
+                  Email :{" "}
+                </span>
+                <span className="status-text font-[DynaPuff] text-[#212121]">
+                  {randomUser?.data[0].email}
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <a
-          href="#"
-          onClick={handleNext}
-          className="text-black bg-gradient-to-l from-[#db5576] to-[#e2d73a] h-10 hover:bg-gradient-to-r focus:ring-2 focus:outline-none focus:ring-[#db5576] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-        >
-          NEXT
-        </a>
       </div>
-    </div>
+      <div className="flex items-center justify-center gap-8">
+        <button
+          className="border rounded-full w-[40px] h-[40px] bg-white"
+          onClick={handleNext}
+        >
+          <FcSynchronize className="content-center m-auto" />
+        </button>
+        <button
+          className="border rounded-full w-[40px] h-[40px] bg-white"
+          onClick={handleDislike}
+        >
+          <GiBrokenHeart className="text-red-600 content-center m-auto " />
+        </button>
+        <button className="border rounded-full w-[40px] h-[40px] bg-white">
+          <BsFillHeartFill className="text-green-600 content-center m-auto" />
+        </button>
+        <button className="border rounded-full w-[40px] h-[40px] bg-white">
+          <FcFlashOn className="text-red-600 content-center m-auto " />
+        </button>
+      </div>
+      <div className="slider-thumb"></div>
+      <div className="slider-thumb1"></div>
+      <div className="slider-thumb2"></div>
+    </>
   );
 };
 

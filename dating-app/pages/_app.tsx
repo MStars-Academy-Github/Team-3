@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "../styles/register.css";
 import type { AppProps } from "next/app";
 import "../styles/logo.css";
+import "../styles/card.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;

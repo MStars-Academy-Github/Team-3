@@ -3,11 +3,13 @@ import bcrypt from "bcryptjs";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
-  const { email } = req.body;
+  const email = req.params.email;
+  console.log(email);
   const findExistingUser = await Users.find({ email: email });
+  console.log(findExistingUser);
   if (findExistingUser) {
     const randomAggergate = await Users.aggregate([
-      { $match: { hobby: { $in: [findExistingUser[0].hobby] } } },
+      // { $match: { hobby: { $in: [findExistingUser[0].hobby] } } },
       { $match: { sex: { $in: [findExistingUser[0].seekingFor] } } },
       { $sample: { size: 1 } },
     ]);
@@ -107,10 +109,10 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
         tokenKey,
         { expiresIn: "2h" }
       );
-      const userInterestData = await Users.find({
-        hobby: { $regex: findExistingUser[0].hobby },
-        sex: { $not: { $regex: findExistingUser[0].seekingFor } },
-      });
+      // const userInterestData = await Users.find({
+      //   hobby: { $regex: findExistingUser[0].hobby },
+      //   sex: { $not: { $regex: findExistingUser[0].seekingFor } },
+      // });
       res.status(200).json({
         email: findExistingUser[0].email,
         success: true,

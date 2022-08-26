@@ -6,7 +6,7 @@ type Props = {};
 const LogoRegister = (props: Props) => {
   return (
     <div>
-      <div className="logo">
+      <div className="logo2">
         <p className="dating ">Dating</p>
         <AiOutlineHeart className="logoIcon" />
         <p className="web">Web</p>
