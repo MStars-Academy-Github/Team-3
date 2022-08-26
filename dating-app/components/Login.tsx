@@ -19,8 +19,12 @@ const Login = (props: Props) => {
       .then((res) => {
         if (res.data.success === true) {
           router.push("/main");
+          console.log(res);
           const user = {
             email: res.data.email,
+            id: res.data.id,
+            name: res.data.name,
+            age: res.data.age,
             token: res.data.token,
           };
           console.log("dsfasdf");

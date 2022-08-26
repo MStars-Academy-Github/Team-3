@@ -6,4 +6,5 @@ router.get("/getUser/:email", userController.getUsers);
 router.post("/", userController.createUser);
 router.post("/login", userController.loginUser);
 router.post("/interest", userController.notFilerting);
+router.post("/liked", userController.likedUser);
 export default router;

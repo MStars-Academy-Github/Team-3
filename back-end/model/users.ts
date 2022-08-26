@@ -33,6 +33,13 @@ const UsersSchema = new Schema({
     type: String,
   },
   interest: [String],
+  liked: [
+    {
+      name: String,
+      email: String,
+      age: String,
+    },
+  ],
 });
 const Users = mongoose.model("users", UsersSchema);
 

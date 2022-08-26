@@ -12,7 +12,7 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
     const randomAggergate = await Users.aggregate([
       {
         $match: {
-          interest: { $ne: findExistingUser[0].interest },
+          email: { $nin: findExistingUser[0].interest },
         },
       },
       { $match: { sex: { $in: [findExistingUser[0].seekingFor] } } },
@@ -31,15 +31,34 @@ const notFilerting = async (
   next: NextFunction
 ) => {
   const { interest, id } = req.body;
+  console.log(id);
   console.log(interest);
   try {
-    const insertUninterested = await Users.updateOne(
-      { _id: id },
-      { $push: { interest: interest } }
-    );
+    await Users.updateOne({ _id: id }, { $push: { interest: interest } });
     res.status(200).json({
       success: true,
       message: "Амжилттай",
+    });
+    next();
+  } catch (err) {
+    console.log(err);
+  }
+};
+const likedUser = async (req: Request, res: Response, next: NextFunction) => {
+  const { name, email, age, id } = req.body;
+  console.log(name);
+  console.log(email);
+  console.log(age);
+  console.log(id);
+
+  try {
+    await Users.updateOne(
+      { _id: id },
+      { $push: { liked: { name: name, email: email, age: age } } }
+    );
+    res.status(200).json({
+      success: true,
+      message: "Амжилттай боллоо",
     });
     next();
   } catch (err) {
@@ -140,9 +159,12 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
       //   sex: { $not: { $regex: findExistingUser[0].seekingFor } },
       // });
       res.status(200).json({
-        email: findExistingUser[0].email,
         success: true,
         token: token,
+        email: findExistingUser[0].email,
+        id: findExistingUser[0]._id,
+        name: findExistingUser[0].firstName,
+        age: findExistingUser[0].age,
         message: "Амжилттай нэвтэрлээ",
       });
     } else {
@@ -156,4 +178,4 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
-export default { getUsers, createUser, loginUser, notFilerting };
+export default { getUsers, createUser, loginUser, notFilerting, likedUser };

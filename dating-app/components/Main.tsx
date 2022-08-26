@@ -27,14 +27,38 @@ const Main = (props: Props) => {
     if (window.localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
       setUser(user);
-      console.log(user.e);
+
       const randomUserData = axios
         .get(`http://localhost:4000/users/getUser/${user.email}`)
         .then((res) => setRandomUser(res.data));
     }
   };
-  const handleDislike = () => {};
-
+  const handleDislike = async () => {
+    if (localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user") || "user");
+      console.log(user);
+      await axios
+        .post("http://localhost:4000/users/interest", {
+          id: user.id,
+          interest: randomUser?.data[0].email,
+        })
+        .then((res) => console.log(res));
+    }
+  };
+  const handleLike = async () => {
+    if (localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user") || "user");
+      console.log(user);
+      await axios
+        .post("http://localhost:4000/users/liked", {
+          id: randomUser?.data[0]._id,
+          name: user.name,
+          age: user.age,
+          email: user.email,
+        })
+        .then((res) => console.log(res));
+    }
+  };
   return (
     <>
       {" "}
@@ -94,6 +118,16 @@ const Main = (props: Props) => {
                   {randomUser?.data[0].email}
                 </span>
               </li>
+              <li>
+                <span className="status-value font-[DynaPuff] text-red-600">
+                  {randomUser?.data[0]?.liked ? "liked you " : ""}
+                </span>
+                <span className="status-text font-[DynaPuff] text-[#212121]">
+                  {randomUser?.data[0]?.liked
+                    ? randomUser?.data[0]?.liked[0].name
+                    : ""}
+                </span>
+              </li>
             </ul>
           </div>
         </div>
@@ -111,7 +145,10 @@ const Main = (props: Props) => {
         >
           <GiBrokenHeart className="text-red-600 content-center m-auto " />
         </button>
-        <button className="border rounded-full w-[40px] h-[40px] bg-white">
+        <button
+          className="border rounded-full w-[40px] h-[40px] bg-white"
+          onClick={handleLike}
+        >
           <BsFillHeartFill className="text-green-600 content-center m-auto" />
         </button>
         <button className="border rounded-full w-[40px] h-[40px] bg-white">
@@ -121,6 +158,7 @@ const Main = (props: Props) => {
       <div className="slider-thumb"></div>
       <div className="slider-thumb1"></div>
       <div className="slider-thumb2"></div>
+      <div className="slider-thumb3"></div>
     </>
   );
 };

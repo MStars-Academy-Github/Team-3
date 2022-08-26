@@ -42,7 +42,7 @@ const Register = (props: Props) => {
       })
       .then((res) => {
         if (res.data.success === true) {
-          router.push("/main");
+          router.push("/login");
           console.log(res.data.data);
         } else {
           console.log(res.data.message);
