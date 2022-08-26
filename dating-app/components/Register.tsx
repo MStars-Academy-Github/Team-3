@@ -51,13 +51,7 @@ const Register = (props: Props) => {
       })
       .catch((err) => console.log(err));
   };
-  // const handlechange = (e: any) => {
-  //   if (e.target.checked === true) {
-  //     setHobby([...hobby, e]);
-  //   } else {
-  //   }
-  //   console.log(e);
-  // };
+
   console.log(hobby);
   return (
     <div className="min-h-screen  flex flex-col items-center bg-gradient-to-r from-[#e46dbe] to-[#c49a63]">
