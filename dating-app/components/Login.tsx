@@ -13,13 +13,10 @@ const Login = (props: Props) => {
     e.preventDefault();
     const email = e.target.username.value;
     const password = e.target.password.value;
-    console.log(password);
     axios
       .post("http://localhost:4000/users/login", { email, password })
       .then((res) => {
         if (res.data.success === true) {
-          router.push("/main");
-          console.log(res);
           const user = {
             email: res.data.email,
             id: res.data.id,
@@ -27,9 +24,9 @@ const Login = (props: Props) => {
             age: res.data.age,
             token: res.data.token,
           };
-          console.log("dsfasdf");
           localStorage.setItem("user", JSON.stringify(user));
           setLocal(res.data.message);
+          router.push("/main");
         } else {
           setError(res.data.message);
         }

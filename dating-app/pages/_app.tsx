@@ -3,28 +3,26 @@ import "../styles/register.css";
 import type { AppProps } from "next/app";
 import "../styles/logo.css";
 import "../styles/card.css";
-import { useEffect } from "react";
-
+import Login from "../components/Login";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+type User = {
+  name: String;
+  id: String;
+  age: Number;
+  email: String;
+};
 function MyApp({ Component, pageProps }: AppProps) {
+  const [user, setUser] = useState<User>();
+  const router = useRouter();
   useEffect(() => {
-    document.addEventListener("mousemove", (a: any) => {
-      let body = document.querySelector("body");
-      let span = document.createElement("span");
-      let x = a.offsetX;
-      let y = a.offsetY;
-      span.style.right = y + "px";
-      span.style.left = x + "px";
-      let size = Math.random() * 20;
-      span.style.height = 2 + size + "px";
-      span.style.width = 2 + size + "px";
-      body?.appendChild(span);
-      setTimeout(() => {
-        span.remove();
-      }, 500);
-    });
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user") || ""));
+      window.location.reload;
+    }
   }, []);
-
-  return <Component {...pageProps} />;
+  console.log(user);
+  return <>{user ? <Component {...pageProps} /> : <Login />}</>;
 }
 
 export default MyApp;
