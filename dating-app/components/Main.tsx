@@ -3,6 +3,7 @@ import { FcSynchronize } from "react-icons/fc";
 import { GiBrokenHeart } from "react-icons/gi";
 import { BsFillHeartFill } from "react-icons/bs";
 import { HiOutlineLogout } from "react-icons/hi";
+import Image from "next/image";
 import axios from "axios";
 import Logo from "./Logo";
 import { useRouter } from "next/router";
@@ -17,7 +18,7 @@ const Main = (props: Props) => {
     if (window.localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
       const randomUserData = axios
-        .get(`http://localhost:4000/users/getUser/${user.email}`)
+        .get(`http://54.183.182.201:4000/users/getUser/${user.email}`)
         .then((res) => setRandomUser(res.data));
     }
   }, []);
@@ -28,7 +29,7 @@ const Main = (props: Props) => {
       setUser(user);
 
       const randomUserData = axios
-        .get(`http://localhost:4000/users/getUser/${user.email}`)
+        .get(`http://54.183.182.201:4000/users/getUser/${user.email}`)
         .then((res) => setRandomUser(res.data));
     }
   };
@@ -36,7 +37,7 @@ const Main = (props: Props) => {
     if (localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
       await axios
-        .post("http://localhost:4000/users/interest", {
+        .post("http://54.183.182.201:4000/users/interest", {
           id: user.id,
           interest: randomUser?.data[0].email,
         })
@@ -47,7 +48,7 @@ const Main = (props: Props) => {
     if (localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
       await axios
-        .post("http://localhost:4000/users/liked", {
+        .post("http://54.183.182.201:4000/users/liked", {
           id: randomUser?.data[0]._id,
           name: user.name,
           age: user.age,
@@ -62,7 +63,6 @@ const Main = (props: Props) => {
   };
   return (
     <>
-      {" "}
       <Logo />
       <div className="flex items-center justify-center w-[100vw] h-[70vh]">
         <div className="profile-card  ">
@@ -89,7 +89,7 @@ const Main = (props: Props) => {
             <ul className="status flex flex-col gap-2 content-center">
               <li className="flex">
                 <div className="status-value font-[DynaPuff] text-red-400">
-                  Gender :{" "}
+                  Gender :
                 </div>
                 <div className="status-text font-[DynaPuff] text-[#212121]">
                   {randomUser?.data[0].sex}
@@ -97,7 +97,7 @@ const Main = (props: Props) => {
               </li>
               <li className="flex">
                 <div className="status-value font-[DynaPuff] text-[#c49a63]">
-                  i'm seeking for :{" "}
+                  im seeking for :
                 </div>
                 <div className="status-text font-[DynaPuff] ">
                   {randomUser?.data[0].seekingFor}
@@ -105,7 +105,7 @@ const Main = (props: Props) => {
               </li>
               <li className="flex">
                 <div className="status-value font-[DynaPuff] text-[#e46dbe]">
-                  Age :{" "}
+                  Age :
                 </div>
                 <div className="status-text font-[DynaPuff] text-[#212121]">
                   {randomUser?.data[0].age}
@@ -113,7 +113,7 @@ const Main = (props: Props) => {
               </li>
               <li className="flex">
                 <div className="status-value font-[DynaPuff] text-red-600 ">
-                  Email :{" "}
+                  Email :
                 </div>
                 <div className="status-text font-[DynaPuff] text-[#212121]">
                   {randomUser?.data[0].email}

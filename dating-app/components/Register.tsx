@@ -30,7 +30,7 @@ const Register = (props: Props) => {
     const seekingGender = e.target[8].checked == "true" ? "male" : "female";
 
     axios
-      .post("http://localhost:4000/users", {
+      .post("http://54.183.182.201:4000/users", {
         firstName: e.target.firstName.value,
         lastName: e.target.lastName.value,
         sex: gender,

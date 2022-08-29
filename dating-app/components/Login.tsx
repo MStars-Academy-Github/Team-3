@@ -14,7 +14,7 @@ const Login = (props: Props) => {
     const email = e.target.username.value;
     const password = e.target.password.value;
     axios
-      .post("http://localhost:4000/users/login", { email, password })
+      .post("http://54.183.182.201:4000/users/login", { email, password })
       .then((res) => {
         if (res.data.success === true) {
           router.push("/main");
