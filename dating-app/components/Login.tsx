@@ -27,6 +27,7 @@ const Login = (props: Props) => {
           };
           localStorage.setItem("user", JSON.stringify(user));
           setLocal(res.data.message);
+          router.push("/main");
         } else {
           setError(res.data.message);
         }

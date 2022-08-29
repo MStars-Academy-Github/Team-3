@@ -21,7 +21,6 @@ const Main = (props: Props) => {
         .then((res) => setRandomUser(res.data));
     }
   }, []);
-  console.log(randomUser);
 
   const handleNext = () => {
     if (window.localStorage.getItem("user")) {
@@ -86,49 +85,49 @@ const Main = (props: Props) => {
             </div>
           </div>
 
-          <div className="profile-card-body">
-            <ul className="status flex flex-col gap-2">
-              <li>
-                <span className="status-value font-[DynaPuff] text-red-400">
+          <div className="profile-card-body ">
+            <ul className="status flex flex-col gap-2 content-center">
+              <li className="flex">
+                <div className="status-value font-[DynaPuff] text-red-400">
                   Gender :{" "}
-                </span>
-                <span className="status-text font-[DynaPuff] text-[#212121]">
+                </div>
+                <div className="status-text font-[DynaPuff] text-[#212121]">
                   {randomUser?.data[0].sex}
-                </span>
+                </div>
               </li>
-              <li>
-                <span className="status-value font-[DynaPuff] text-[#c49a63]">
+              <li className="flex">
+                <div className="status-value font-[DynaPuff] text-[#c49a63]">
                   i'm seeking for :{" "}
-                </span>
-                <span className="status-text font-[DynaPuff] ">
+                </div>
+                <div className="status-text font-[DynaPuff] ">
                   {randomUser?.data[0].seekingFor}
-                </span>
+                </div>
               </li>
-              <li>
-                <span className="status-value font-[DynaPuff] text-[#e46dbe]">
+              <li className="flex">
+                <div className="status-value font-[DynaPuff] text-[#e46dbe]">
                   Age :{" "}
-                </span>
-                <span className="status-text font-[DynaPuff] text-[#212121]">
+                </div>
+                <div className="status-text font-[DynaPuff] text-[#212121]">
                   {randomUser?.data[0].age}
-                </span>
+                </div>
               </li>
-              <li>
-                <span className="status-value font-[DynaPuff] text-red-600">
+              <li className="flex">
+                <div className="status-value font-[DynaPuff] text-red-600 ">
                   Email :{" "}
-                </span>
-                <span className="status-text font-[DynaPuff] text-[#212121]">
+                </div>
+                <div className="status-text font-[DynaPuff] text-[#212121]">
                   {randomUser?.data[0].email}
-                </span>
+                </div>
               </li>
-              <li>
-                <span className="status-value font-[DynaPuff] text-red-600">
-                  {randomUser?.data[0]?.liked ? "liked you " : ""}
-                </span>
-                <span className="status-text font-[DynaPuff] text-[#212121]">
+              <li className="flex">
+                <div className="status-value font-[DynaPuff] text-red-600">
+                  {randomUser?.data[0]?.liked ? "liked you : " : ""}
+                </div>
+                <div className="status-text font-[DynaPuff] text-[#212121]">
                   {randomUser?.data[0]?.liked
                     ? randomUser?.data[0]?.liked[0].name
                     : ""}
-                </span>
+                </div>
               </li>
             </ul>
           </div>
@@ -153,17 +152,18 @@ const Main = (props: Props) => {
         >
           <BsFillHeartFill className="text-green-600 content-center m-auto" />
         </button>
-        <button
-          className="border rounded-full w-[40px] h-[40px] bg-white"
-          onClick={handleLogout}
-        >
-          <HiOutlineLogout className="text-red-600 content-center m-auto " />
+        <button className="border rounded-full w-[40px] h-[40px] bg-white">
+          <HiOutlineLogout
+            className="text-red-600 content-center m-auto "
+            onClick={handleLogout}
+          />
         </button>
       </div>
       <div className="slider-thumb"></div>
       <div className="slider-thumb1"></div>
       <div className="slider-thumb2"></div>
       <div className="slider-thumb3"></div>
+      <div className="heart"></div>
     </>
   );
 };

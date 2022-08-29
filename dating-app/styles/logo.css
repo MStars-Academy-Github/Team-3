@@ -124,6 +124,35 @@ body {
   z-index: -1;
   -webkit-animation: sliderShape3 3s linear infinite;
 }
+/* .heart {
+  width: 250px;
+  height: 250px;
+  background: purple;
+  position: relative;
+  top: 0px;
+  left: 100px;
+  transform: rotate(-45deg);
+}
+.heart::after {
+  background: inherit;
+  height: 250px;
+  width: 250px;
+  content: "";
+  position: absolute;
+  top: -50%;
+  border-radius: 50%;
+  left: 0;
+}
+.heart::before {
+  background: inherit;
+  height: 250px;
+  width: 250px;
+  content: "";
+  position: absolute;
+  top: 0%;
+  right: -50%;
+  border-radius: 50%;
+} */
 @keyframes sliderShape {
   0%,
   100% {
