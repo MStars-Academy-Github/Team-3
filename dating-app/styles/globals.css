@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+span {
+  position: absolute;
+  background: url("../public/pictures/heart3.png");
+  background-size: cover;
+  animation: animate 2s linear infinite;
+  color: brown;
+}
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  0% {
+    transform: translate(-50%, -1000%);
+    opacity: 0;
+    filter: hue-rotate(7200deg);
+  }
+}
