@@ -2,20 +2,20 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FcSynchronize } from "react-icons/fc";
 import { GiBrokenHeart } from "react-icons/gi";
 import { BsFillHeartFill } from "react-icons/bs";
-import { FcFlashOn } from "react-icons/fc";
+import { HiOutlineLogout } from "react-icons/hi";
 import axios from "axios";
 import Logo from "./Logo";
-import { Card } from "flowbite-react";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 const Main = (props: Props) => {
+  const router = useRouter();
   const [randomUser, setRandomUser] = useState<any>();
   const [user, setUser] = useState();
   useEffect(() => {
     if (window.localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
-      console.log(user.email);
       const randomUserData = axios
         .get(`http://localhost:4000/users/getUser/${user.email}`)
         .then((res) => setRandomUser(res.data));
@@ -36,7 +36,6 @@ const Main = (props: Props) => {
   const handleDislike = async () => {
     if (localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
-      console.log(user);
       await axios
         .post("http://localhost:4000/users/interest", {
           id: user.id,
@@ -48,7 +47,6 @@ const Main = (props: Props) => {
   const handleLike = async () => {
     if (localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") || "user");
-      console.log(user);
       await axios
         .post("http://localhost:4000/users/liked", {
           id: randomUser?.data[0]._id,
@@ -58,6 +56,10 @@ const Main = (props: Props) => {
         })
         .then((res) => console.log(res));
     }
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    router.push("/login");
   };
   return (
     <>
@@ -151,8 +153,11 @@ const Main = (props: Props) => {
         >
           <BsFillHeartFill className="text-green-600 content-center m-auto" />
         </button>
-        <button className="border rounded-full w-[40px] h-[40px] bg-white">
-          <FcFlashOn className="text-red-600 content-center m-auto " />
+        <button
+          className="border rounded-full w-[40px] h-[40px] bg-white"
+          onClick={handleLogout}
+        >
+          <HiOutlineLogout className="text-red-600 content-center m-auto " />
         </button>
       </div>
       <div className="slider-thumb"></div>

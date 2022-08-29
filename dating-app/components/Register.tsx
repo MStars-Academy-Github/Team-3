@@ -162,7 +162,6 @@ const Register = (props: Props) => {
                         type="checkbox"
                         name={e.name}
                         id={e.id}
-                        className=""
                         value={hobby}
                         onChange={(event) => {
                           event.target.checked === true
