@@ -4,10 +4,9 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   const email = req.params.email;
-  console.log(email);
+
   const findExistingUser = await Users.find({ email: email });
-  console.log(findExistingUser[0].hobby);
-  console.log(findExistingUser[0].interest);
+
   if (findExistingUser) {
     const randomAggergate = await Users.aggregate([
       {
@@ -31,8 +30,7 @@ const notFilerting = async (
   next: NextFunction
 ) => {
   const { interest, id } = req.body;
-  console.log(id);
-  console.log(interest);
+
   try {
     await Users.updateOne({ _id: id }, { $push: { interest: interest } });
     res.status(200).json({
@@ -46,10 +44,6 @@ const notFilerting = async (
 };
 const likedUser = async (req: Request, res: Response, next: NextFunction) => {
   const { name, email, age, id } = req.body;
-  console.log(name);
-  console.log(email);
-  console.log(age);
-  console.log(id);
 
   try {
     await Users.updateOne(
@@ -62,7 +56,7 @@ const likedUser = async (req: Request, res: Response, next: NextFunction) => {
     });
     next();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -154,10 +148,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
         tokenKey,
         { expiresIn: "2h" }
       );
-      // const userInterestData = await Users.find({
-      //   hobby: { $regex: findExistingUser[0].hobby },
-      //   sex: { $not: { $regex: findExistingUser[0].seekingFor } },
-      // });
+
       res.status(200).json({
         success: true,
         token: token,
