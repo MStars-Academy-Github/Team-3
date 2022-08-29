@@ -91,7 +91,7 @@ body {
   will-change: border-radius, transform, opacity;
   animation: sliderShape 5s linear infinite;
   display: block;
-  z-index: 1;
+  z-index: -1;
   -webkit-animation: sliderShape 3s linear infinite;
 }
 .slider-thumb2::before {
@@ -106,7 +106,7 @@ body {
   will-change: border-radius, transform, opacity;
   animation: sliderShape2 5s linear infinite;
   display: block;
-  z-index: 1;
+  z-index: -1;
   -webkit-animation: sliderShape2 3s linear infinite;
 }
 .slider-thumb3::before {

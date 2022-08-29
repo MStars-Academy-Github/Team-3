@@ -2,14 +2,17 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FcSynchronize } from "react-icons/fc";
 import { GiBrokenHeart } from "react-icons/gi";
 import { BsFillHeartFill } from "react-icons/bs";
-import { FcFlashOn } from "react-icons/fc";
+import { HiOutlineLogout } from "react-icons/hi";
+import { useRouter } from "next/router";
 import axios from "axios";
 import Logo from "./Logo";
 import { Card } from "flowbite-react";
+import { Router } from "next/router";
 
 type Props = {};
 
 const Main = (props: Props) => {
+  const router = useRouter();
   const [randomUser, setRandomUser] = useState<any>();
   const [user, setUser] = useState();
   useEffect(() => {
@@ -58,6 +61,11 @@ const Main = (props: Props) => {
         })
         .then((res) => console.log(res));
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    router.push("/login");
   };
   return (
     <>
@@ -152,7 +160,10 @@ const Main = (props: Props) => {
           <BsFillHeartFill className="text-green-600 content-center m-auto" />
         </button>
         <button className="border rounded-full w-[40px] h-[40px] bg-white">
-          <FcFlashOn className="text-red-600 content-center m-auto " />
+          <HiOutlineLogout
+            className="text-red-600 content-center m-auto "
+            onClick={handleLogout}
+          />
         </button>
       </div>
       <div className="slider-thumb"></div>
