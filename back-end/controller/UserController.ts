@@ -4,10 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   const email = req.params.email;
-  console.log(email);
   const findExistingUser = await Users.find({ email: email });
-  console.log(findExistingUser[0].hobby);
-  console.log(findExistingUser[0].interest);
   if (findExistingUser) {
     const randomAggergate = await Users.aggregate([
       {
@@ -18,7 +15,6 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
       { $match: { sex: { $in: [findExistingUser[0].seekingFor] } } },
       { $sample: { size: 1 } },
     ]);
-    console.log(randomAggergate);
     res.status(200).json({
       success: true,
       data: randomAggergate,
