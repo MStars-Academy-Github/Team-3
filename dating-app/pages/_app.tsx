@@ -18,10 +18,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user") || ""));
-      window.location.reload;
+      router.push("/main");
     }
-  }, []);
-  console.log(user);
+  }, [router]);
+
   return <>{user ? <Component {...pageProps} /> : <Login />}</>;
 }
 
