@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import { IUserDoc } from "./user.interfaces";
+import { IUserDoc, IUserModel } from "./user.interfaces";
+import bcrypt from "bcryptjs";
 
 const userSchema = new Schema<IUserDoc>({
   firstName: {
@@ -31,5 +32,23 @@ const userSchema = new Schema<IUserDoc>({
   },
 });
 
-const User = mongoose.model<IUserDoc>("User", userSchema);
+userSchema.method(
+  "isPasswordMatch",
+  async function (password: string): Promise<boolean> {
+    const user = this;
+    return bcrypt.compare(password, user.password);
+  }
+);
+
+userSchema.pre("save", async function (next) {
+  const user = this;
+  console.log("before model saved");
+  console.log(user);
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
+  next();
+});
+
+const User = mongoose.model<IUserDoc, IUserModel>("User", userSchema);
 export default User;
