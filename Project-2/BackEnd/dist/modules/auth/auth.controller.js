@@ -36,12 +36,9 @@ exports.loginUser = void 0;
 const authService = __importStar(require("./auth.service"));
 const token_1 = require("../token");
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body, "===========");
     const { email, password } = req.body;
     const user = yield authService.loginUser(email, password);
-    console.log(user, "----------------");
     const tokens = yield token_1.tokenService.generateAuthToken(user);
-    console.log(tokens);
     res.send({ user, tokens });
 });
 exports.loginUser = loginUser;
