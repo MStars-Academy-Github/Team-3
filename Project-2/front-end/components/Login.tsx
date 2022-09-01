@@ -5,14 +5,18 @@ const Login = () => {
   const router = useRouter();
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(e.target.username.value);
-    console.log(e.target.password.value);
     axios
-      .post("http://localhost:3000/v1/auth/login", {
+      .post("http://localhost:3001/v1/auth/login", {
         email: e.target.username.value,
         password: e.target.password.value,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res);
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          router.push("/main");
+        }
+      })
       .catch((err) => console.log(err));
   };
   const handleRegister = () => {
@@ -21,7 +25,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full">
-        <h2 className="text-center text-dark-400  font-bold text-2xl uppercase mb-10 font-[DynaPuff]">
+        <h2 className="text-center text-red-800 font-bold text-2xl uppercase mb-10 font-[DynaPuff]">
           Please Login Video Streaming app
         </h2>
         <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-2/4 xl:w-1/4">
@@ -54,19 +58,18 @@ const Login = () => {
                 placeholder="Password"
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               />
-              <p
-                className="flex justify-end text-sm text-red-400 mt-2 hover:underline"
-                onClick={handleRegister}
-              >
-                REGISTER
-              </p>
             </div>
-
             <button
               type="submit"
-              className="block w-full bg-gradient-to-r from-[#e46dbe] to-[#c49a63] text-white font-bold p-4 rounded-lg"
+              className="block w-full bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-4 rounded-lg"
             >
               LOGIN
+            </button>
+            <button
+              className="block w-full bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-4 rounded-lg mt-4"
+              onClick={handleRegister}
+            >
+              REGISTER
             </button>
           </form>
         </div>
