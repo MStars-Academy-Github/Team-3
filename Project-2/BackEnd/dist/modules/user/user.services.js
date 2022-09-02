@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserByEmail = exports.createUser = void 0;
 const user_modules_1 = __importDefault(require("./user.modules"));
 function createUser(body) {
-    console.log("user service layer");
-    console.log(body);
+    // console.log("user service layer");
+    // console.log(body);
     return user_modules_1.default.create(body);
 }
 exports.createUser = createUser;

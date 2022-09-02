@@ -6,7 +6,7 @@ const Login = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/v1/auth/login", {
+      .post("http://localhost:3002/v1/auth/login", {
         email: e.target.username.value,
         password: e.target.password.value,
       })

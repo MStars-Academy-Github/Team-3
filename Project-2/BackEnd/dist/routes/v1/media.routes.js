@@ -4,11 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const user_route_1 = __importDefault(require("./user.route"));
-const auth_route_1 = __importDefault(require("./auth.route"));
-const media_routes_1 = __importDefault(require("./media.routes"));
+const media_1 = require("../../modules/media");
 const router = express_1.default.Router();
-router.use("/users", user_route_1.default);
-router.use("/auth", auth_route_1.default);
-router.use("/media", media_routes_1.default);
+router.post("/upload", media_1.mediaController.createMedia);
+router.get("/video/:mediaId", media_1.mediaController.getMediaById);
+router.get("/video/by/:userId", media_1.mediaController.getMediaByUserId);
 exports.default = router;
