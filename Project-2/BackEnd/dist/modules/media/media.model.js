@@ -42,7 +42,7 @@ const mediaSchema = new mongoose_1.Schema({
         default: 0,
     },
     postedBy: {
-        type: mongoose_1.Types.ObjectId,
+        type: mongoose_1.Schema.Types.ObjectId,
         ref: user_1.User,
     },
     updated: {

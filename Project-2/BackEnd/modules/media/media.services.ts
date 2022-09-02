@@ -9,5 +9,5 @@ export function createMedia(body: any) {
   return Media.create(body);
 }
 
-export const getMediaById = async (email: string): Promise<IMediaDoc | null> =>
-  Media.findOne({ email });
+// export const getMediaById = async (email: string): Promise<IMediaDoc | null> =>
+//   Media.findOne({ email });
