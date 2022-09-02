@@ -3,8 +3,8 @@ import { IUserDoc } from "./user.interfaces";
 import User from "./user.modules";
 
 export function createUser(body: any) {
-  console.log("user service layer");
-  console.log(body);
+  // console.log("user service layer");
+  // console.log(body);
 
   return User.create(body);
 }
