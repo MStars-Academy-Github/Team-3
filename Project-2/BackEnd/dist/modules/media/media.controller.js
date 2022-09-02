@@ -34,6 +34,7 @@ const createMedia = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         let media = new _1.Media(fields);
         media.postedBy = user === null || user === void 0 ? void 0 : user.id;
         const file = files["media"];
+        console.log(fields);
         // save the parsed file
         if (file) {
             let writeStream = gridfs.openUploadStream(media._id.toString(), {

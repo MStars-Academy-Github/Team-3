@@ -1,8 +1,26 @@
 import React from "react";
-
+import axios from "axios";
+import { useRouter } from "next/router";
 export default function Register() {
+  const router = useRouter();
   const handleRegister = (e: any) => {
     console.log(e);
+    e.preventDefault();
+    axios
+      .post("http://localhost:3001/v1/users", {
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        email: e.target.email.value,
+        phone: e.target.phone.value,
+        register: e.target.registerNumber.value,
+        password: e.target.confirmedPassword.value,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          router.push("/main");
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className="min-h-screen  flex flex-col items-center ">
@@ -119,7 +137,7 @@ export default function Register() {
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="submit"
           >
-            Submit
+            REGISTER
           </button>
         </form>
       </div>

@@ -20,9 +20,11 @@ export const createMedia = async (req: Request, res: Response) => {
       });
     }
     const user = await User.findById("630ef583ac9a86b055977e31");
+
     let media = new Media(fields);
     media.postedBy = user?.id;
     const file = files["media"];
+    console.log(fields);
 
     // save the parsed file
     if (file) {
