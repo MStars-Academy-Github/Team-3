@@ -12,3 +12,14 @@ export const loginUser = async (
   }
   return user;
 };
+
+
+export const registerUser = async (
+  email:string,
+):Promise<IUserDoc>=>{
+  const registerMail = await getUserByEmail(email);
+  if (!registerMail){
+     throw new Error ("already registered email")
+  }
+  return registerMail;
+}

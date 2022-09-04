@@ -10,3 +10,8 @@ export function createUser(body: any) {
 }
 export const getUserByEmail = async (email: string): Promise<IUserDoc | null> =>
   User.findOne({ email });
+
+// export const getUserByPhone = async (register: string): Promise<IUserDoc | null> =>
+//   User.findOne({ register });
+
+

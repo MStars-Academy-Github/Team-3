@@ -1,6 +1,7 @@
 import * as authService from "./auth.service";
 import { Request, Response } from "express";
 import { tokenService } from "../token";
+
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await authService.loginUser(email, password);
