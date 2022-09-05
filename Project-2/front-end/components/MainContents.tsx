@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
+import React, { ReactElement, useEffect, useState } from "react";
+
 import dynamic from "next/dynamic";
-import { FaPlay } from "react-icons/fa";
+import axios from "axios";
+
 type Props = {};
 
 const MainContents = (props: Props) => {
+  const [videos, setVideos] = useState([]);
   const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+  useEffect(() => {
+    // async () => {
+    //   const result = await axios
+    //     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/video/by${userId}`)
+    //     .then((res) => setVideos(res.data));
+    // };
+  }, []);
   return (
     <div className="container mx-auto mt-8">
-      <ReactPlayer width={"300px"} url="vi.mp4" controls={true} />
+      {videos.map((item: any) => (
+        <ReactPlayer width={"300px"} controls={true} />
+      ))}
     </div>
   );
 };
