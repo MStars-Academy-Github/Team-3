@@ -9,10 +9,13 @@ const MainContents = (props: Props) => {
   const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
   useEffect(() => {
     (async () => {
-      const result = await list({ userId: "630ee08f072342f9493c57fe" });
+      const result = await list({ userId: "630ef5afac9a86b055977e33" });
+      console.log(result);
       setVideos(result);
     })();
   }, []);
+  console.log(videos);
+
   return (
     <div className="container mx-auto mt-8">
       {videos.map((item: any) => (
