@@ -9,11 +9,11 @@ const MainContents = (props: Props) => {
   const [videos, setVideos] = useState([]);
   const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
   useEffect(() => {
-    async () => {
-      const result = await axios
-        .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/video/by${userId}`)
-        .then((res) => setVideos(res.data));
-    };
+    // async () => {
+    //   const result = await axios
+    //     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/video/by${userId}`)
+    //     .then((res) => setVideos(res.data));
+    // };
   }, []);
   return (
     <div className="container mx-auto mt-8">
