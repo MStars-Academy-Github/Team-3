@@ -55,28 +55,30 @@ const Addvideo = (props: Props) => {
   console.log(uploadPercent);
   return (
     <div className="container mx-auto">
-      <div>{submiting && <p>{uploadPercent}%</p>}</div>
-      <form
-        className="flex flex-col items-center"
-        encType="multipart/form-data"
-        onSubmit={handlerSubmit}
-      >
-        <input
-          type="file"
-          accept=".mp4"
-          onChange={handleSetFile}
-          name="video"
-        />
-        <input type="text" placeholder="Title" name="title" />
-        <input type="text" placeholder="Description" name="description" />
-        <input type="text" placeholder="Genre" name="genre" />
-        <button
-          type="submit"
-          className="block bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4"
+      <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-2/4 xl:w-1/4">
+        <div>{submiting && <p>{uploadPercent}%</p>}</div>
+        <form
+          className="flex flex-col items-center"
+          encType="multipart/form-data"
+          onSubmit={handlerSubmit}
         >
-          Upload
-        </button>
-      </form>
+          <input
+            type="file"
+            accept=".mp4"
+            onChange={handleSetFile}
+            name="video"
+          />
+          <input type="text" placeholder="Title" name="title" />
+          <input type="text" placeholder="Description" name="description" />
+          <input type="text" placeholder="Genre" name="genre" />
+          <button
+            type="submit"
+            className="block bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4"
+          >
+            Upload
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
