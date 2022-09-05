@@ -6,7 +6,7 @@ import cors from "cors";
 
 const app: Express = express();
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const ATLAS_MONGO_SERVER = process.env.ATLAS_MONGO_SERVER || "localhost";
 
 app.use(express.json());

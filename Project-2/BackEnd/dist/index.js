@@ -10,7 +10,7 @@ const v1_1 = __importDefault(require("./routes/v1"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const ATLAS_MONGO_SERVER = process.env.ATLAS_MONGO_SERVER || "localhost";
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
