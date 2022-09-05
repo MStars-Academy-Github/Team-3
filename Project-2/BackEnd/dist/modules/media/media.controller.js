@@ -63,10 +63,17 @@ const getMediaById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         let files = yield gridfs
             .find({ filename: media === null || media === void 0 ? void 0 : media._id.toString() })
             .toArray();
+        let file = files[0];
         console.log(files);
-        res.json({
-            data: media,
-            file: files,
+        res.header("Content-Length", file.length.toString());
+        res.header("Content-Type", file.contentType);
+        let downloadstream = gridfs.openDownloadStream(file._id);
+        downloadstream.pipe(res);
+        downloadstream.on("error", () => {
+            res.sendStatus(404);
+        });
+        downloadstream.on("end", () => {
+            res.end();
         });
     }
     catch (error) {

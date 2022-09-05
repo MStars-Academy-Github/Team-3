@@ -22,3 +22,5 @@ function createUser(body) {
 exports.createUser = createUser;
 const getUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () { return user_modules_1.default.findOne({ email }); });
 exports.getUserByEmail = getUserByEmail;
+// export const getUserByPhone = async (register: string): Promise<IUserDoc | null> =>
+//   User.findOne({ register });

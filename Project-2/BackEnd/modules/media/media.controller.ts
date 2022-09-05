@@ -54,11 +54,17 @@ export const getMediaById = async (req: Request, res: Response) => {
     let files = await gridfs
       .find({ filename: media?._id.toString() })
       .toArray();
+    let file = files[0];
     console.log(files);
-
-    res.json({
-      data: media,
-      file: files,
+    res.header("Content-Length", file.length.toString());
+    res.header("Content-Type", file.contentType);
+    let downloadstream = gridfs.openDownloadStream(file._id);
+    downloadstream.pipe(res);
+    downloadstream.on("error", () => {
+      res.sendStatus(404);
+    });
+    downloadstream.on("end", () => {
+      res.end();
     });
   } catch (error) {
     res.status(404).json({

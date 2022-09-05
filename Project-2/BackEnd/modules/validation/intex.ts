@@ -1,5 +1,3 @@
+import { userValidationRules, validate } from "./validationmiddleware";
 
-import * as validation from "./validationmiddleware";
-
-
-export { validation };
+export { validate, userValidationRules };
