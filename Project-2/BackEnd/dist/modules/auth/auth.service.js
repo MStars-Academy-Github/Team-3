@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = void 0;
+exports.registerUser = exports.loginUser = void 0;
 const user_services_1 = require("../user/user.services");
 const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield (0, user_services_1.getUserByEmail)(email);
@@ -19,3 +19,11 @@ const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, functio
     return user;
 });
 exports.loginUser = loginUser;
+const registerUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const registerMail = yield (0, user_services_1.getUserByEmail)(email);
+    if (!registerMail) {
+        throw new Error("already registered email");
+    }
+    return registerMail;
+});
+exports.registerUser = registerUser;
