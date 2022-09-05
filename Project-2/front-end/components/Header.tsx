@@ -16,6 +16,10 @@ const Header = () => {
     setUser("");
   };
 
+  const handleClick = () => {
+    router.push("/main");
+  };
+
   return (
     <div className="container mx-auto flex justify-between bg-gradient-to-r from-[#9d0825] to-[#6c012e] h-14 items-center text-slate-50 font-medium">
       <div className="ml-4 flex items-center">
@@ -38,7 +42,7 @@ const Header = () => {
           </button>
         </div>
         <div className="mr-5">
-          <button>MY PROFILE</button>
+          <button onClick={handleClick}>MY PROFILE</button>
         </div>
         {user ? (
           <div className="mr-2">
