@@ -1,10 +1,13 @@
 import express, { Router } from "express";
-import { userValidationRules, validate } from  "../../modules/validation/validationmiddleware";
+
 import userRoute from "./user.route";
 import authRoute from "./auth.route";
 import mediaRoute from "./media.routes";
 import registerRoute from "./register.route";
-
+import {
+  userValidationRules,
+  validate,
+} from "../../modules/validation/validationmiddleware";
 const router = express.Router();
 
 interface IRoute {
