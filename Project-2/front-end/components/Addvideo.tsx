@@ -49,7 +49,7 @@ const Addvideo = () => {
     formData.append("title", e.target.title.value);
     formData.append("description", e.target.description.value);
     formData.append("genre", e.target.genre.value);
-    formData.append("image", e.target.image.value);
+    formData.append("thumbImg", e.target.image.value);
     if (user) {
       formData.append("userId", user._id);
     }

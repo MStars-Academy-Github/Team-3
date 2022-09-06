@@ -78,7 +78,6 @@ export const getMediaByUserId = async (req: Request, res: Response) => {
   // console.log(userId);
   try {
     const media = await Media.find({ postedBy: userId });
-    res.status(200).json({ data: media });
   } catch (error) {
     res.status(404).json({
       error: "could not retrieve media file",
