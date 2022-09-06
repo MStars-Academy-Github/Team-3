@@ -1,12 +1,25 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Header from "./Header";
 import Layout from "./Layout";
-
+type User = {
+  _id: string | Blob;
+  firstName: String;
+  lastName: String;
+  password: String;
+  register: String;
+};
 const Addvideo = () => {
   const [file, setFile] = useState<File>();
   const [uploadPercent, setUploadPercent] = useState(0);
   const [submiting, setSubmit] = useState(false);
+  const [user, setUser] = useState<User>();
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user") || ""));
+    }
+  }, []);
+  console.log(user?._id);
   const handleSetFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files;
     console.log(f);
@@ -36,6 +49,10 @@ const Addvideo = () => {
     formData.append("title", e.target.title.value);
     formData.append("description", e.target.description.value);
     formData.append("genre", e.target.genre.value);
+    if (user) {
+      formData.append("userId", user._id);
+    }
+
     try {
       await axios
         .post(
@@ -56,7 +73,7 @@ const Addvideo = () => {
       setUploadPercent(0);
     }
   };
-  console.log(uploadPercent);
+
   return (
     <div className="container mx-auto">
       <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-2/4 xl:w-1/4 mt-20">
