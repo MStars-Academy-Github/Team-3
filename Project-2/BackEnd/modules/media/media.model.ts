@@ -15,6 +15,9 @@ const mediaSchema = new Schema<IMediaDoc>({
   genre: {
     type: String,
   },
+  thumbImg: {
+    type: String,
+  },
   views: {
     type: Number,
     default: 0,

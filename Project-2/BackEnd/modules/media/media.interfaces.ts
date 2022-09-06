@@ -4,6 +4,7 @@ export interface IMedia {
   title: string;
   description: string;
   genre: string;
+  thumbImg: string;
   views: number;
   postedBy: Schema.Types.ObjectId;
   updated: Date;
