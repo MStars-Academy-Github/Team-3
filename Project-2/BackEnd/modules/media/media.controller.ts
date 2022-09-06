@@ -46,6 +46,7 @@ export const createMedia = async (req: Request, res: Response) => {
 
 export const getMediaById = async (req: Request, res: Response) => {
   const { mediaId } = req.params;
+  console.log(mediaId);
   try {
     const media = await Media.findById(mediaId)
       .populate("postedBy", "_id firstName lastName")

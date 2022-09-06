@@ -11,21 +11,33 @@ type User = {
   register: String;
 };
 const MainContents = (props: Props) => {
-  const [videos, setVideos] = useState([]);
-  const [user, setUser] = useState<User>();
-
   const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+  const [videos, setVideos] = useState([]);
+
   useEffect(() => {
-    (async () => {
-      const result = await list({ userId: "63101b6a8863c69364fd5d0e" });
-      console.log(result);
-      setVideos(result);
-    })();
+    if (localStorage.getItem("user")) {
+      const user: User = JSON.parse(localStorage.getItem("user") || "");
+      (async () => {
+        const result = await list({ userId: user._id });
+        console.log(result);
+        setVideos(result);
+      })();
+    }
   }, []);
   console.log(videos);
-
+  const genre = ["Animation", "Action", "Comedy", "Adventure"];
   return (
     <div className="container mx-auto mt-8">
+      <div>
+        {genre.map((e: string, i: number) => (
+          <button
+            key={i}
+            className="border rounded-full p-2 w-48 ml-2 hover:bg-sky-500"
+          >
+            {e}
+          </button>
+        ))}
+      </div>
       <div className="gap-2 columns-4">
         {videos.map((item: any) => (
           <div key={item._id} className="ml-2">
