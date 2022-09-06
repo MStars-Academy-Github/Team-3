@@ -17,7 +17,7 @@ const Header = () => {
   };
 
   const handleClick = () => {
-    router.push("/main");
+    router.push("/myprofile");
   };
 
   return (
@@ -52,7 +52,7 @@ const Header = () => {
           <div className="mr-2">
             <button
               onClick={() => {
-                router.push("/login");
+                router.push("/");
               }}
             >
               SIGN IN
