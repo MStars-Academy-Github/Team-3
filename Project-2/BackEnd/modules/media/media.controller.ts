@@ -19,12 +19,11 @@ export const createMedia = async (req: Request, res: Response) => {
         error: "video could not uploaded",
       });
     }
-    const user = await User.findById("630ef583ac9a86b055977e31");
-
+    const user = await User.findById(fields.userId);
+    console.log(fields);
     let media = new Media(fields);
     media.postedBy = user?.id;
     const file = files["media"];
-    console.log(fields);
 
     // save the parsed file
     if (file) {
@@ -76,7 +75,6 @@ export const getMediaById = async (req: Request, res: Response) => {
 export const getMediaByUserId = async (req: Request, res: Response) => {
   const { userId } = req.params;
   console.log(userId);
-
   try {
     const media = await Media.find({ postedBy: userId });
     res.status(200).json({ data: media });

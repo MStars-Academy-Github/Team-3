@@ -5,7 +5,6 @@ export const list = async (params: any): Promise<any> => {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/video/by/${params.userId}`
     );
     console.log(result);
-
     return result.data.data;
   } catch (error) {
     return error;
