@@ -96,3 +96,22 @@ export const getAllMedia = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const updateMedia = async (req: Request, res: Response) => {
+  const { _id, title, description, genre } = req.body;
+  try {
+    const updatedMedia = await Media.updateOne(
+      { _id: _id },
+      { $set: { title: title, description: description, genre: genre } }
+    );
+    console.log(_id);
+    console.log(req.body);
+    console.log(updatedMedia);
+
+    res.status(200).json({ data: updatedMedia, success: "amjilttai" });
+  } catch (error) {
+    res.status(404).json({
+      error: "could not retrieve media file",
+    });
+  }
+};
