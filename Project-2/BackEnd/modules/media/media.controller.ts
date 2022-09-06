@@ -74,10 +74,22 @@ export const getMediaById = async (req: Request, res: Response) => {
 
 export const getMediaByUserId = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  console.log(userId);
+  // console.log(userId);
   try {
     const media = await Media.find({ postedBy: userId });
     res.status(200).json({ data: media });
+  } catch (error) {
+    res.status(404).json({
+      error: "could not retrieve media file",
+    });
+  }
+};
+
+export const getAllMedia = async (req: Request, res: Response) => {
+  try {
+    const allMedia = await Media.find();
+    console.log(allMedia);
+    res.status(200).json({ data: allMedia });
   } catch (error) {
     res.status(404).json({
       error: "could not retrieve media file",

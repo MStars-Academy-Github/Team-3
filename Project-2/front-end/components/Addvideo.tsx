@@ -49,6 +49,7 @@ const Addvideo = () => {
     formData.append("title", e.target.title.value);
     formData.append("description", e.target.description.value);
     formData.append("genre", e.target.genre.value);
+    formData.append("image", e.target.image.value);
     if (user) {
       formData.append("userId", user._id);
     }
@@ -105,6 +106,12 @@ const Addvideo = () => {
             type="text"
             placeholder="Genre"
             name="genre"
+            className="w-80 mt-4 rounded-lg shadow-lg h-12 p-2"
+          />
+          <input
+            type="text"
+            placeholder="Image"
+            name="image"
             className="w-80 mt-4 rounded-lg shadow-lg h-12 p-2"
           />
           <div>{submiting && <p>{uploadPercent}%</p>}</div>
