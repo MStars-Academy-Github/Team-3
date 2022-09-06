@@ -28,6 +28,9 @@ const Header = () => {
           <RiHome2Fill className="ml-2" />
         </div>
       </div>
+      <div>
+        <input type="text" className="text-black w-80 rounded" />
+      </div>
       <div className="flex mr-4">
         <div className="mr-5 flex items-center">
           <div>
@@ -42,7 +45,7 @@ const Header = () => {
           </button>
         </div>
         <div className="mr-5">
-          <button onClick={handleClick}>MY PROFILE</button>
+          <button onClick={handleClick}>EDIT VIDEO</button>
         </div>
         {user ? (
           <div className="mr-2">
