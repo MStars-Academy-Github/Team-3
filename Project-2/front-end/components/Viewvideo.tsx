@@ -9,10 +9,10 @@ const Viewvideo = (props: Props) => {
   console.log(props);
   const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
   return (
-    <div>
+    <div className="flex justify-center content-center">
       <ReactPlayer
         url={`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/video/${props.id}`}
-        width="100%"
+        width="50%"
         height={"inherit"}
         controls={true}
       />
