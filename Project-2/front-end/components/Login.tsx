@@ -14,7 +14,7 @@ const Login = () => {
         if (res.status === 200) {
           console.log(res);
           localStorage.setItem("user", JSON.stringify(res.data.user));
-          router.push("/main");
+          router.push("/");
         }
       })
       .catch((err) => console.log(err));

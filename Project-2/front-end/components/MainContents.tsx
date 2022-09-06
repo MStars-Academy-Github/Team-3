@@ -9,7 +9,7 @@ const MainContents = (props: Props) => {
   const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
   useEffect(() => {
     (async () => {
-      const result = await list({ userId: "630ef5afac9a86b055977e33" });
+      const result = await list({ userId: "63101b6a8863c69364fd5d0e" });
       console.log(result);
       setVideos(result);
     })();
@@ -22,7 +22,7 @@ const MainContents = (props: Props) => {
         <div key={item._id}>
           <ReactPlayer
             url={`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/video/${item._id}`}
-            width="100%"
+            width="20%"
             height={"inherit"}
             controls={true}
           />

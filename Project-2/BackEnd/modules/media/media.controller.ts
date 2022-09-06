@@ -19,7 +19,7 @@ export const createMedia = async (req: Request, res: Response) => {
         error: "video could not uploaded",
       });
     }
-    const user = await User.findById("630ef583ac9a86b055977e31");
+    const user = await User.findById("63101b6a8863c69364fd5d0e");
 
     let media = new Media(fields);
     media.postedBy = user?.id;
