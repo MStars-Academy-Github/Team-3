@@ -13,7 +13,6 @@ type User = {
   register: String;
 };
 const MainContents = (props: Props) => {
-  const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
   const [videos, setVideos] = useState([]);
   const router = useRouter();
   useEffect(() => {
@@ -21,12 +20,20 @@ const MainContents = (props: Props) => {
       const user: User = JSON.parse(localStorage.getItem("user") || "");
       (async () => {
         const result = await list({ userId: user._id });
-        console.log(result);
         setVideos(result);
       })();
     }
   }, []);
-  console.log(videos);
+  const handlerFilter = (e: any) => {
+    console.log(e.target.innerText);
+    const filter = videos
+      .filter(
+        (video: any) =>
+          video.genre.toLowerCase() == e.target.innerText.toLowerCase()
+      )
+      .map((v) => v);
+    setVideos(filter);
+  };
   const genre = ["Animation", "Action", "Comedy", "Adventure"];
   return (
     <div className="container mx-auto mt-8">
@@ -34,6 +41,7 @@ const MainContents = (props: Props) => {
         {genre.map((e: string, i: number) => (
           <button
             key={i}
+            onClick={handlerFilter}
             className="border rounded-full p-2 w-48 ml-2 hover:bg-gradient-to-r from-[#9d0825] to-[#6c012e] hover:text-white"
           >
             {e}
@@ -42,13 +50,13 @@ const MainContents = (props: Props) => {
       </div>
       <div className="gap-2 columns-4 mt-4">
         {videos.map((item: any) => (
-          <div>
-            <div className="w-full h-full text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
-              <HiOutlinePlay className="w-[50px] h-[50px]" />
+          <div className="w-full h-full" key={item._id}>
+            <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+              <Link href={`mediaplay/${item._id}`}>
+                <HiOutlinePlay className="w-[50px] h-[50px]" />
+              </Link>
             </div>
-            <Link href={`mediaplay/${item._id}`}>
-              <img src={item.thumbImg} className="rounded"></img>
-            </Link>
+            <img src={item.thumbImg} className="rounded"></img>
           </div>
         ))}
       </div>
