@@ -14,6 +14,7 @@ const Addvideo = () => {
   const [uploadPercent, setUploadPercent] = useState(0);
   const [submiting, setSubmit] = useState(false);
   const [user, setUser] = useState<User>();
+
   useEffect(() => {
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user") || ""));
@@ -49,6 +50,7 @@ const Addvideo = () => {
     formData.append("title", e.target.title.value);
     formData.append("description", e.target.description.value);
     formData.append("genre", e.target.genre.value);
+    console.log(e.target.genre.value);
     formData.append("thumbImg", e.target.image.value);
     if (user) {
       formData.append("userId", user._id);
@@ -74,6 +76,7 @@ const Addvideo = () => {
       setUploadPercent(0);
     }
   };
+  const genre = ["Animation", "Action", "Comedy", "Adventure", "Documentary"];
 
   return (
     <div className="container mx-auto">
@@ -102,12 +105,17 @@ const Addvideo = () => {
             name="description"
             className="w-80 mt-4 rounded-lg shadow-lg h-12 p-2"
           />
-          <input
-            type="text"
-            placeholder="Genre"
+          <select
+            id="countries"
             name="genre"
             className="w-80 mt-4 rounded-lg shadow-lg h-12 p-2"
-          />
+          >
+            {genre.map((item, i) => {
+              {
+                return <option placeholder="choose genre">{item}</option>;
+              }
+            })}
+          </select>
           <input
             type="text"
             placeholder="Image"
