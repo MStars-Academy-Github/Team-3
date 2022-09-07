@@ -13,44 +13,80 @@ type User = {
   register: String;
 };
 const MainContents = (props: Props) => {
-  const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+  const genre = ["All", "Animation", "Action", "Comedy", "Adventure"];
   const [videos, setVideos] = useState([]);
-  const router = useRouter();
+  const [temp, setTempe] = useState<any[]>(videos ? videos : []);
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user: User = JSON.parse(localStorage.getItem("user") || "");
-      (async () => {
-        const result = await list({ userId: user._id });
-        setVideos(result);
-      })();
     }
+    (async () => {
+      const result = await list();
+      setVideos(result);
+    })();
   }, []);
-  // console.log(videos);
-  const genre = ["Animation", "Action", "Comedy", "Adventure"];
 
+  const handlerFilter = (e: any) => {
+    let filter = [];
+    const sortToGenre = videos.filter(
+      (vi: any) => vi.genre.toLowerCase() == e.target.innerText.toLowerCase()
+    );
+    filter.push(sortToGenre);
+    setTempe(filter);
+    if (e.target.innerText === "All") {
+      setTempe([]);
+      setVideos(videos);
+    }
+  };
   return (
     <div className="container mx-auto mt-8">
       <div>
         {genre.map((e: string, i: number) => (
           <button
             key={i}
+            onClick={handlerFilter}
             className="border rounded-full p-2 w-48 ml-2 hover:bg-gradient-to-r from-[#9d0825] to-[#6c012e] hover:text-white"
           >
             {e}
           </button>
         ))}
       </div>
-      <div className="gap-2 columns-4 mt-4">
-        {videos.map((item: any, i: any) => (
-          <div key={i}>
-            <div className="w-full h-full text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
-              <HiOutlinePlay className="w-[50px] h-[50px]" />
-            </div>
-            <Link href={`mediaplay/${item._id}`}>
-              <img src={item.thumbImg} className="rounded"></img>
-            </Link>
+      <div>
+        {temp.length > 0 ? (
+          <div className="gap-2 columns-4 mt-4">
+            {temp[0].map(
+              (item: {
+                _id: React.Key | null | undefined;
+                thumbImg: string | undefined;
+              }): any => (
+                <div className="w-full h-full" key={item._id}>
+                  <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+                    <Link href={`mediaplay/${item._id}`}>
+                      <HiOutlinePlay className="w-[50px] h-[50px]" />
+                    </Link>
+                  </div>
+                  <img src={item.thumbImg} className="rounded"></img>
+                </div>
+              )
+            )}
           </div>
-        ))}
+        ) : (
+          <div className="gap-2 columns-4 mt-4">
+            {videos.map((item: any) => (
+              <div className="" key={item._id}>
+                <div className="text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+                  <Link href={`mediaplay/${item._id}`}>
+                    <HiOutlinePlay className="w-[50px] h-[50px]" />
+                  </Link>
+                </div>
+                <img
+                  src={item.thumbImg}
+                  className="rounded w-[300px] h-[200px]"
+                ></img>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
