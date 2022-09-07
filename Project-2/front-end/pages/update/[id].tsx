@@ -1,12 +1,13 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
-import MyProfile from "../../components/MyProfile";
-import { mediaGetById } from "../../pages/api/api.media";
+import UpdateMedia from "../../components/UpdateMedia";
+import { mediaGetById } from "../api/api.media";
+
 type Props = {};
 
-const myprofile = (props: Props) => {
+const updateMedia = (props: Props) => {
+  const [video, setVideo] = useState();
   const router = useRouter();
   console.log(router.query.id);
   useEffect(() => {
@@ -17,11 +18,11 @@ const myprofile = (props: Props) => {
     })();
   }, []);
   return (
-    <>
+    <div>
       <Header />
-      <MyProfile id={router.query.id} />
-    </>
+      <UpdateMedia id={router.query.id} />
+    </div>
   );
 };
 
-export default myprofile;
+export default updateMedia;

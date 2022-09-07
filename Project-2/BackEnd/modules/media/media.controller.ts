@@ -6,6 +6,7 @@ import { GridFSBucket } from "mongodb";
 import mongoose from "mongoose";
 import { Media } from ".";
 import fs from "fs";
+import { IMedia } from "./media.interfaces";
 let gridfs: GridFSBucket;
 mongoose.connection.on("connected", () => {
   gridfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
@@ -72,6 +73,22 @@ export const getMediaById = async (req: Request, res: Response) => {
     });
   }
 };
+export const MediaById = async (req: Request, res: Response) => {
+  const { _id } = req.params;
+  console.log(_id, "----------");
+
+  const body: any = await Media.findById(_id);
+  console.log(body, "+++++++");
+
+  try {
+    const media = await Media.findOne({ _id: body._id });
+    res.status(200).json({ data: media, success: "amjilltai" });
+  } catch (error) {
+    res.status(404).json({
+      error: "could not retrieve media file",
+    });
+  }
+};
 
 export const getMediaByUserId = async (req: Request, res: Response) => {
   const { userId } = req.params;
@@ -98,11 +115,20 @@ export const getAllMedia = async (req: Request, res: Response) => {
 };
 
 export const updateMedia = async (req: Request, res: Response) => {
-  const { _id, title, description, genre } = req.body;
+  const { _id } = req.params;
+  const { title, description, genre, thumbImg } = req.body;
+  const body: any = await Media.findById(_id);
   try {
     const updatedMedia = await Media.updateOne(
-      { _id: _id },
-      { $set: { title: title, description: description, genre: genre } }
+      { _id: body._id },
+      {
+        $set: {
+          title: title,
+          description: description,
+          genre: genre,
+          thumbImg: thumbImg,
+        },
+      }
     );
     // console.log(_id);
     // console.log(req.body);
@@ -117,10 +143,18 @@ export const updateMedia = async (req: Request, res: Response) => {
 };
 
 export const deleteMedia = async (req: Request, res: Response) => {
-  const { _id } = req.body;
+  const _id = req.params;
+  // console.log(_id, "----------------");
+
+  const body: any = await Media.findById(_id);
+  // console.log(body, "+++++++++++++++++++");
+
   try {
-    const deletedMedia = await Media.deleteOne({ _id: _id });
-    res.status(200).json({ data: deletedMedia, success: "amjilltai" });
+    if (body) {
+      const mediaDelete = await Media.deleteOne({ _id: body._id });
+      res.status(200).json({ data: mediaDelete, success: "amjilltai" });
+      // console.log(deletedMedia);
+    }
   } catch (error) {
     res.status(404).json({
       error: "could not retrieve media file",

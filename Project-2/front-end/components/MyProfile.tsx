@@ -2,10 +2,9 @@ import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { ReactElement, useEffect, useState } from "react";
-import { HiOutlinePlay } from "react-icons/hi";
+
 import { list } from "../pages/api/api.media";
-import Header from "./Header";
-import Layout from "./Layout";
+
 type User = {
   _id: string | Blob;
   firstName: String;
@@ -13,86 +12,94 @@ type User = {
   password: String;
   register: String;
 };
-
+type Videos = {
+  _id: string | any;
+  title: string;
+  description: string;
+  genre: string;
+  thumbImg: string;
+  views: number;
+};
 type Props = {
   id: string[] | undefined | string;
 };
 const MyProfile = (props: Props) => {
   const [user, setUser] = useState<User>();
-
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState<Videos[]>([]);
   const router = useRouter();
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user: User = JSON.parse(localStorage.getItem("user") || "");
       (async () => {
-        const result = await list({ userId: user._id });
+        const result = await list();
         setVideos(result);
       })();
     }
   }, []);
 
-  // const handlerSubmit = async (e: any) => {
-  //   e.preventDefault();
+  const handleUpdate = async (e: any) => {
+    // router.push("updateMedia");
+    // try {
+    //   await axios
+    //     .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/update/${e}`)
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         console.log("Orj irsen");
+    //       }
+    //     })
+    //     .catch((err) => console.log(err));
+    // } catch (err) {
+    //   console.log(err);
+    // } finally {
+    // }
+  };
 
-  //   try {
-  //     await axios
-  //       .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/allvideo`)
-  //       .then((res) => {
-  //         console.log(res);
-  //         if (res.status === 200) {
-  //           console.log("Orj irsen");
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } catch (err) {
-  //     console.log(err);
-  //   } finally {
-  //   }
-  // };
-  const handleUpdate = () => {};
-
-  const id = videos.map((e:any)=>{
-    return e._id
-  })
-  const handleDelete = () => {axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/delete`,{_id:id}).then((res)=>{
-    console.log(res);
-    if(res.status===200){
-      console.log("Orson");
+  const handleDelete = async (e: string) => {
+    try {
+      await axios
+        .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/delete/${e}`)
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("Orj irsen");
+          }
+        })
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.log(err);
+    } finally {
     }
-    
-  });
-
-  const genre = ["Animation", "Action", "Comedy", "Adventure", "Documentary"];
+  };
 
   return (
     <div className=" flex mt-4 container content-center mx-auto justify-between flex-wrap">
-      {videos.map((item: any, i: any) => (
-        <div key={i}>
-          <Link href={`mediaplay/${item._id}`}>
-            <img
-              src={item.thumbImg}
-              className="rounded w-[300px] h-[200px]"
-            ></img>
-          </Link>
-          <div className="flex flex-row justify-around mb-4">
-            <button
-              className="bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4"
-              onClick={handleUpdate}
-            >
-              Update
-            </button>
-            <button
-              className="bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
+      {videos &&
+        videos?.map((item: Videos, i: any) => (
+          <div key={i}>
+            <Link href={`mediaplay/${item._id}`}>
+              <img
+                src={item.thumbImg}
+                className="rounded w-[300px] h-[200px]"
+              ></img>
+            </Link>
+            <div className="flex flex-row justify-around mb-4">
+              <Link href={`/update/${item._id}`}>
+                <button
+                  className="bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4"
+                  onClick={() => handleUpdate(item._id)}
+                >
+                  Update
+                </button>
+              </Link>
+              <button
+                className="bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4"
+                onClick={() => handleDelete(item._id)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
-
 export default MyProfile;
