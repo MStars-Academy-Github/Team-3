@@ -6,7 +6,7 @@ type Props = {
 };
 
 const Viewvideo = (props: Props) => {
-  console.log(props);
+  // console.log(props);
   const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
   return (
     <div className="flex justify-center content-center">

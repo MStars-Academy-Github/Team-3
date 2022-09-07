@@ -15,7 +15,7 @@ export const mediaGetById = async (params: any): Promise<any> => {
     const result = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/video/${params.mediaId}`
     );
-    console.log(result);
+    // console.log(result);
     return result.data;
   } catch (err) {
     return err;

@@ -88,7 +88,7 @@ export const getMediaByUserId = async (req: Request, res: Response) => {
 export const getAllMedia = async (req: Request, res: Response) => {
   try {
     const allMedia = await Media.find();
-    console.log(allMedia);
+    // console.log(allMedia);
     res.status(200).json({ data: allMedia });
   } catch (error) {
     res.status(404).json({
@@ -104,11 +104,23 @@ export const updateMedia = async (req: Request, res: Response) => {
       { _id: _id },
       { $set: { title: title, description: description, genre: genre } }
     );
-    console.log(_id);
-    console.log(req.body);
-    console.log(updatedMedia);
+    // console.log(_id);
+    // console.log(req.body);
+    // console.log(updatedMedia);
 
     res.status(200).json({ data: updatedMedia, success: "amjilttai" });
+  } catch (error) {
+    res.status(404).json({
+      error: "could not retrieve media file",
+    });
+  }
+};
+
+export const deleteMedia = async (req: Request, res: Response) => {
+  const { _id } = req.body;
+  try {
+    const deletedMedia = await Media.deleteOne({ _id: _id });
+    res.status(200).json({ data: deletedMedia, success: "amjilltai" });
   } catch (error) {
     res.status(404).json({
       error: "could not retrieve media file",

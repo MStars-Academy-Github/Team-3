@@ -21,13 +21,13 @@ const MainContents = (props: Props) => {
       const user: User = JSON.parse(localStorage.getItem("user") || "");
       (async () => {
         const result = await list({ userId: user._id });
-        console.log(result);
         setVideos(result);
       })();
     }
   }, []);
-  console.log(videos);
+  // console.log(videos);
   const genre = ["Animation", "Action", "Comedy", "Adventure"];
+
   return (
     <div className="container mx-auto mt-8">
       <div>
@@ -41,8 +41,8 @@ const MainContents = (props: Props) => {
         ))}
       </div>
       <div className="gap-2 columns-4 mt-4">
-        {videos.map((item: any) => (
-          <div>
+        {videos.map((item: any, i: any) => (
+          <div key={i}>
             <div className="w-full h-full text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
               <HiOutlinePlay className="w-[50px] h-[50px]" />
             </div>
