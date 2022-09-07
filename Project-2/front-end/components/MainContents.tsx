@@ -51,43 +51,42 @@ const MainContents = (props: Props) => {
           </button>
         ))}
       </div>
-      <div>
-        {temp.length > 0 ? (
-          <div className="gap-2 columns-4 mt-4">
-            {temp[0].map(
-              (item: {
-                _id: React.Key | null | undefined;
-                thumbImg: string | undefined;
-              }): any => (
-                <div className="w-full h-full" key={item._id}>
-                  <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
-                    <Link href={`mediaplay/${item._id}`}>
-                      <HiOutlinePlay className="w-[50px] h-[50px]" />
-                    </Link>
-                  </div>
-                  <img src={item.thumbImg} className="rounded"></img>
-                </div>
-              )
-            )}
-          </div>
-        ) : (
-          <div className="gap-2 columns-4 mt-4">
-            {videos.map((item: any) => (
-              <div className="" key={item._id}>
-                <div className="text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+
+      {temp.length > 0 ? (
+        <div className="gap-2 columns-5 mt-4">
+          {temp[0].map(
+            (item: {
+              _id: React.Key | null | undefined;
+              thumbImg: string | undefined;
+            }): any => (
+              <div className="w-full h-full" key={item._id}>
+                <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
                   <Link href={`mediaplay/${item._id}`}>
                     <HiOutlinePlay className="w-[50px] h-[50px]" />
                   </Link>
                 </div>
-                <img
-                  src={item.thumbImg}
-                  className="rounded w-[300px] h-[200px]"
-                ></img>
+                <img src={item.thumbImg} className="rounded"></img>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+            )
+          )}
+        </div>
+      ) : (
+        <div className="gap-2 columns-5 mt-4">
+          {videos.map((item: any) => (
+            <div className="pt-4" key={item._id}>
+              <div className="text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+                <Link href={`mediaplay/${item._id}`}>
+                  <HiOutlinePlay className="w-[50px] h-[50px]" />
+                </Link>
+              </div>
+              <img
+                src={item.thumbImg}
+                className="rounded w-[300px] h-[200px]"
+              ></img>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

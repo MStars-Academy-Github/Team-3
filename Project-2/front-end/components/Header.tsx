@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { RiHome2Fill } from "react-icons/ri";
-import { TiPlus } from "react-icons/ti";
+import { TiPlus, TiSocialTumbler } from "react-icons/ti";
 import { useRouter } from "next/router";
+import { BsSearch } from "react-icons/bs";
 const Header = () => {
   const [user, setUser] = useState("");
   const router = useRouter();
@@ -17,9 +18,13 @@ const Header = () => {
   };
 
   const handleClick = () => {
-    router.push("/myprofile");
+    router.push(`/myprofile`);
   };
-
+  const handlerSearch = (e: any) => {
+    e.preventDefault();
+    console.log(e.target.search.value);
+    router.push(`/search/${e.target.search.value}`);
+  };
   return (
     <div className="container mx-auto flex justify-between bg-gradient-to-r from-[#9d0825] to-[#6c012e] h-14 items-center text-slate-50 font-medium">
       <div className="ml-4 flex items-center">
@@ -29,7 +34,16 @@ const Header = () => {
         </div>
       </div>
       <div>
-        <input type="text" className="text-black w-80 rounded" />
+        <form className="flex items-center" onSubmit={handlerSearch}>
+          <input
+            type="text"
+            name="search"
+            className="text-black w-80 rounded"
+          />
+          <button className="absolute ml-[300px]" type="submit">
+            <BsSearch className="text-black" />
+          </button>
+        </form>
       </div>
       <div className="flex mr-4">
         <div className="mr-5 flex items-center">
