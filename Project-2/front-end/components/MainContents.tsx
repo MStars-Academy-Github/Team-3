@@ -13,7 +13,9 @@ type User = {
   register: String;
 };
 const MainContents = (props: Props) => {
+  const genre = ["Animation", "Action", "Comedy", "Adventure"];
   const [videos, setVideos] = useState([]);
+  const [temp, setTempe] = useState<any[]>(videos ? videos : []);
   const router = useRouter();
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -24,17 +26,19 @@ const MainContents = (props: Props) => {
       })();
     }
   }, []);
+
   const handlerFilter = (e: any) => {
     console.log(e.target.innerText);
-    const filter = videos
-      .filter(
-        (video: any) =>
-          video.genre.toLowerCase() == e.target.innerText.toLowerCase()
-      )
-      .map((v) => v);
-    setVideos(filter);
+    let filter = [];
+
+    const b = videos.forEach(
+      (vi: any) => vi.genre.toLowerCase() === e.target.innerText.toLowerCase()
+    );
+    console.log(b);
+    filter.push(b);
+    setTempe(filter);
   };
-  const genre = ["Animation", "Action", "Comedy", "Adventure"];
+
   return (
     <div className="container mx-auto mt-8">
       <div>
@@ -49,16 +53,40 @@ const MainContents = (props: Props) => {
         ))}
       </div>
       <div className="gap-2 columns-4 mt-4">
-        {videos.map((item: any) => (
-          <div className="w-full h-full" key={item._id}>
-            <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
-              <Link href={`mediaplay/${item._id}`}>
-                <HiOutlinePlay className="w-[50px] h-[50px]" />
-              </Link>
+        <div>
+          {temp.length > 0 ? (
+            <div>
+              {temp.map(
+                (item: {
+                  _id: React.Key | null | undefined;
+                  thumbImg: string | undefined;
+                }): any => (
+                  <div className="w-full h-full" key={item._id}>
+                    <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+                      <Link href={`mediaplay/${item._id}`}>
+                        <HiOutlinePlay className="w-[50px] h-[50px]" />
+                      </Link>
+                    </div>
+                    <img src={item.thumbImg} className="rounded"></img>
+                  </div>
+                )
+              )}
             </div>
-            <img src={item.thumbImg} className="rounded"></img>
-          </div>
-        ))}
+          ) : (
+            <div>
+              {videos.map((item: any) => (
+                <div className="w-full h-full" key={item._id}>
+                  <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+                    <Link href={`mediaplay/${item._id}`}>
+                      <HiOutlinePlay className="w-[50px] h-[50px]" />
+                    </Link>
+                  </div>
+                  <img src={item.thumbImg} className="rounded"></img>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
