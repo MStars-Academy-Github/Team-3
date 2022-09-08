@@ -26,7 +26,7 @@ const SearchResult = (props: Props) => {
   const result = videos.filter((vi) =>
     vi.title.toLowerCase().includes(props.value.toLowerCase())
   );
-  console.log(result.length);
+
   return (
     <div className="container mx-auto">
       <div className="gap-2 columns-5 mt-4">
@@ -41,6 +41,7 @@ const SearchResult = (props: Props) => {
                 </div>
                 <img
                   src={item.thumbImg}
+                  alt="image"
                   className="rounded w-[300px] h-[200px]"
                 ></img>
               </div>

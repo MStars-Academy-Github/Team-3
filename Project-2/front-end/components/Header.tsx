@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { RiHome2Fill } from "react-icons/ri";
-import { TiPlus, TiSocialTumbler } from "react-icons/ti";
+import { TiPlus } from "react-icons/ti";
 import { useRouter } from "next/router";
 import { BsSearch } from "react-icons/bs";
 const Header = () => {

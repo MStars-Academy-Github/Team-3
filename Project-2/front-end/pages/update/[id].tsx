@@ -6,17 +6,14 @@ import { mediaGetById } from "../api/api.media";
 
 type Props = {};
 
-const updateMedia = (props: Props) => {
-  const [video, setVideo] = useState();
+const UpdateMediaPage = (props: Props) => {
   const router = useRouter();
-  console.log(router.query.id);
-  useEffect(() => {
-    (async () => {
-      const result = await mediaGetById({
-        mediaId: router.query.id,
-      });
-    })();
-  }, []);
+  (async () => {
+    const result = await mediaGetById({
+      mediaId: router.query.id,
+    });
+  })();
+
   return (
     <div>
       <Header />
@@ -25,4 +22,4 @@ const updateMedia = (props: Props) => {
   );
 };
 
-export default updateMedia;
+export default UpdateMediaPage;
