@@ -6,7 +6,7 @@ type Props = {};
 
 const searchValue = (props: Props) => {
   const router = useRouter();
-  const searchedValue = router.query.searchValue;
+  const searchedValue = router.query.searchValue as string;
   console.log(searchedValue);
   return (
     <>

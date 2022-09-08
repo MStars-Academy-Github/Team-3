@@ -7,7 +7,7 @@ const myprofile = (props: Props) => {
   return (
     <>
       <Header />
-      <MyProfile />
+      <MyProfile id={undefined} />
     </>
   );
 };

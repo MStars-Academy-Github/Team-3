@@ -48,7 +48,7 @@ export const createMedia = async (req: Request, res: Response) => {
 export const getMediaById = async (req: Request, res: Response) => {
   const { mediaId } = req.params;
   const range = req.headers["range"];
-
+  console.log(range);
   try {
     const media = await Media.findById(mediaId)
       .populate("postedBy", "_id firstName lastName")
@@ -57,13 +57,14 @@ export const getMediaById = async (req: Request, res: Response) => {
       .find({ filename: media?._id.toString() })
       .toArray();
     let file = files[0];
-
-    if (range && typeof range === "string") {
+    // console.log(files);
+    if (range && typeof range == "string") {
+      console.log("orj irsen");
       const parts = range.replace(/bytes=/, "").split("-");
       const partialStart = parts[0];
-      const partialEnd = parts[1];
+      const partailEnd = parts[1];
       const start = parseInt(partialStart, 10);
-      const end = partialEnd ? parseInt(partialEnd, 10) : file.length - 1;
+      const end = partailEnd ? parseInt(partailEnd, 10) : file.length - 1;
       const chunkSize = end - start + 1;
       res.writeHead(206, {
         "Accept-Ranges": "bytes",
@@ -75,10 +76,10 @@ export const getMediaById = async (req: Request, res: Response) => {
         start,
         end: end + 1,
       });
-      downloadstream.pipe(res);
-      downloadstream.on("error", () => {
-        res.sendStatus(404);
-      });
+      downloadstream.pipe(res),
+        downloadstream.on("error", () => {
+          res.sendStatus(404);
+        });
       downloadstream.on("end", () => {
         res.end();
       });
@@ -86,10 +87,10 @@ export const getMediaById = async (req: Request, res: Response) => {
       res.header("Content-Length", file.length.toString());
       res.header("Content-Type", file.contentType);
       let downloadstream = gridfs.openDownloadStream(file._id);
-      downloadstream.pipe(res);
-      downloadstream.on("error", () => {
-        res.sendStatus(404);
-      });
+      downloadstream.pipe(res),
+        downloadstream.on("error", () => {
+          res.sendStatus(404);
+        });
       downloadstream.on("end", () => {
         res.end();
       });
@@ -102,10 +103,10 @@ export const getMediaById = async (req: Request, res: Response) => {
 };
 export const MediaById = async (req: Request, res: Response) => {
   const { _id } = req.params;
-  console.log(_id, "----------");
+  // console.log(_id, "----------");
 
   const body: any = await Media.findById(_id);
-  console.log(body, "+++++++");
+  // console.log(body, "+++++++");
 
   try {
     const media = await Media.findOne({ _id: body._id });
