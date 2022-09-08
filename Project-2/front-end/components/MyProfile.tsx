@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
+import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { ReactElement, useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 
 import { list } from "../pages/api/api.media";
 
@@ -24,9 +24,7 @@ type Props = {
   id: string[] | undefined | string;
 };
 const MyProfile = (props: Props) => {
-  const [user, setUser] = useState<User>();
   const [videos, setVideos] = useState<Videos[]>([]);
-  const router = useRouter();
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user: User = JSON.parse(localStorage.getItem("user") || "");
@@ -36,23 +34,6 @@ const MyProfile = (props: Props) => {
       })();
     }
   }, []);
-
-  const handleUpdate = async (e: any) => {
-    // router.push("updateMedia");
-    // try {
-    //   await axios
-    //     .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/update/${e}`)
-    //     .then((res) => {
-    //       if (res.status === 200) {
-    //         console.log("Orj irsen");
-    //       }
-    //     })
-    //     .catch((err) => console.log(err));
-    // } catch (err) {
-    //   console.log(err);
-    // } finally {
-    // }
-  };
 
   const handleDelete = async (e: string) => {
     try {
@@ -78,15 +59,13 @@ const MyProfile = (props: Props) => {
             <Link href={`mediaplay/${item._id}`}>
               <img
                 src={item.thumbImg}
+                alt="img"
                 className="rounded w-[300px] h-[200px]"
               ></img>
             </Link>
             <div className="flex flex-row justify-around mb-4">
               <Link href={`/update/${item._id}`}>
-                <button
-                  className="bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4"
-                  onClick={() => handleUpdate(item._id)}
-                >
+                <button className="bg-gradient-to-r from-[#9d0825] to-[#6c012e] text-white font-bold p-2 rounded-lg mt-4">
                   Update
                 </button>
               </Link>

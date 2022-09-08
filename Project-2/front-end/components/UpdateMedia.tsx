@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 type Props = {
   id: string[] | undefined | string;
@@ -13,7 +13,6 @@ type Videos = {
   views: number;
 };
 const UpdateMedia = (props: Props) => {
-  //   console.log(props);
   const [video, setVideo] = useState<Videos>();
   const handlerSubmit = (e: any) => {
     e.preventDefault();
@@ -40,19 +39,6 @@ const UpdateMedia = (props: Props) => {
       return error;
     }
   };
-
-  //   try {
-  //     axios
-  //       .get(
-  //         `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/media/by/${props.id}`
-  //       )
-  //       .then((res) => {
-  //         setVideo(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } catch (error) {}
-
-  //   console.log(video && video);
 
   const genre = ["Animation", "Action", "Comedy", "Adventure", "Documentary"];
   return (

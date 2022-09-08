@@ -1,6 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import React, { ReactElement, useEffect, useState } from "react";
-import Header from "./Header";
 import Layout from "./Layout";
 type User = {
   _id: string | Blob;
