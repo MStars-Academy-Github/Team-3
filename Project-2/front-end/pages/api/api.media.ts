@@ -4,8 +4,6 @@ export const list = async (): Promise<any> => {
     const result = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/media/allvideo`
     );
-    console.log(result);
-
     return result.data.data;
   } catch (error) {
     return error;

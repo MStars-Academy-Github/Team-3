@@ -15,6 +15,7 @@ const mediaplay = (props: Props) => {
       const result = await mediaGetById({
         mediaId: router.query.id,
       });
+      console.log(result);
     })();
   }, []);
   return (

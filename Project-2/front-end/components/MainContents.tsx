@@ -74,7 +74,7 @@ const MainContents = (props: Props) => {
         <div className="gap-2 columns-5 mt-4">
           {videos.map((item: any) => (
             <div className="pt-4" key={item._id}>
-              <div className="text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+              <div className="text-white absolute mt-16 ml-[125px] opacity-0 hover:opacity-100">
                 <Link href={`mediaplay/${item._id}`}>
                   <HiOutlinePlay className="w-[50px] h-[50px]" />
                 </Link>
