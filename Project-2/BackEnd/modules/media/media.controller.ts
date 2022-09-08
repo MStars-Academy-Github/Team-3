@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import { User } from "../user";
-import * as mediaServices from "./media.services";
 import formidable, { Fields } from "formidable";
 import { GridFSBucket } from "mongodb";
 import mongoose from "mongoose";
 import { Media } from ".";
 import fs from "fs";
-import { IMedia } from "./media.interfaces";
+
 let gridfs: GridFSBucket;
 mongoose.connection.on("connected", () => {
   gridfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
@@ -21,7 +20,6 @@ export const createMedia = async (req: Request, res: Response) => {
       });
     }
     const user = await User.findById(fields.userId);
-    console.log(fields);
     let media = new Media(fields);
     media.postedBy = user?.id;
     const file = files["media"];
@@ -33,7 +31,6 @@ export const createMedia = async (req: Request, res: Response) => {
       });
       fs.createReadStream(file.filepath).pipe(writeStream);
     }
-
     try {
       let result = await media.save();
       res.status(200).json({ data: result });
@@ -48,7 +45,6 @@ export const createMedia = async (req: Request, res: Response) => {
 export const getMediaById = async (req: Request, res: Response) => {
   const { mediaId } = req.params;
   const range = req.headers["range"];
-  console.log(range);
   try {
     const media = await Media.findById(mediaId)
       .populate("postedBy", "_id firstName lastName")
@@ -57,9 +53,8 @@ export const getMediaById = async (req: Request, res: Response) => {
       .find({ filename: media?._id.toString() })
       .toArray();
     let file = files[0];
-    // console.log(files);
+
     if (range && typeof range == "string") {
-      console.log("orj irsen");
       const parts = range.replace(/bytes=/, "").split("-");
       const partialStart = parts[0];
       const partailEnd = parts[1];
@@ -103,10 +98,7 @@ export const getMediaById = async (req: Request, res: Response) => {
 };
 export const MediaById = async (req: Request, res: Response) => {
   const { _id } = req.params;
-  // console.log(_id, "----------");
-
   const body: any = await Media.findById(_id);
-  // console.log(body, "+++++++");
 
   try {
     const media = await Media.findOne({ _id: body._id });
@@ -120,7 +112,7 @@ export const MediaById = async (req: Request, res: Response) => {
 
 export const getMediaByUserId = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  // console.log(userId);
+
   try {
     const media = await Media.find({ postedBy: userId });
   } catch (error) {
@@ -133,7 +125,6 @@ export const getMediaByUserId = async (req: Request, res: Response) => {
 export const getAllMedia = async (req: Request, res: Response) => {
   try {
     const allMedia = await Media.find();
-    // console.log(allMedia);
     res.status(200).json({ data: allMedia });
   } catch (error) {
     res.status(404).json({
@@ -158,9 +149,6 @@ export const updateMedia = async (req: Request, res: Response) => {
         },
       }
     );
-    // console.log(_id);
-    // console.log(req.body);
-    // console.log(updatedMedia);
 
     res.status(200).json({ data: updatedMedia, success: "amjilttai" });
   } catch (error) {
@@ -172,16 +160,13 @@ export const updateMedia = async (req: Request, res: Response) => {
 
 export const deleteMedia = async (req: Request, res: Response) => {
   const _id = req.params;
-  // console.log(_id, "----------------");
 
   const body: any = await Media.findById(_id);
-  // console.log(body, "+++++++++++++++++++");
 
   try {
     if (body) {
       const mediaDelete = await Media.deleteOne({ _id: body._id });
       res.status(200).json({ data: mediaDelete, success: "amjilltai" });
-      // console.log(deletedMedia);
     }
   } catch (error) {
     res.status(404).json({

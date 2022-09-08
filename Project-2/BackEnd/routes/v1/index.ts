@@ -3,11 +3,7 @@ import express, { Router } from "express";
 import userRoute from "./user.route";
 import authRoute from "./auth.route";
 import mediaRoute from "./media.routes";
-// import registerRoute from "./register.route";
-// import {
-//   userValidationRules,
-//   validate,
-// } from "../../modules/validation/validationmiddleware";
+
 const router = express.Router();
 
 interface IRoute {
@@ -18,6 +14,5 @@ interface IRoute {
 router.use("/users", userRoute);
 router.use("/auth", authRoute);
 router.use("/media", mediaRoute);
-// router.use("/register", registerRoute);
 
 export default router;
