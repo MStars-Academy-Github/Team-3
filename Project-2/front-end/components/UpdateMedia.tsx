@@ -85,7 +85,11 @@ const UpdateMedia = (props: Props) => {
           >
             {genre.map((item, i) => {
               {
-                return <option placeholder="choose genre">{item}</option>;
+                return (
+                  <option key={i} placeholder="choose genre">
+                    {item}
+                  </option>
+                );
               }
             })}
           </select>

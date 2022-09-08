@@ -16,33 +16,39 @@ type Video = {
 };
 const SearchResult = (props: Props) => {
   const [videos, setVideos] = useState<Video[]>([]);
-  console.log(videos);
   useEffect(() => {
     (async () => {
       const result = await list();
       setVideos(result);
     })();
   }, []);
+
   const result = videos.filter((vi) =>
-    vi.title.toLowerCase().includes(props.value.toLocaleLowerCase())
+    vi.title.toLowerCase().includes(props.value.toLowerCase())
   );
-  console.log(result);
+  console.log(result.length);
   return (
     <div className="container mx-auto">
       <div className="gap-2 columns-5 mt-4">
-        {result.map((item: any) => (
-          <div className="pt-4" key={item._id}>
-            <div className="text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
-              <Link href={`mediaplay/${item._id}`}>
-                <HiOutlinePlay className="w-[50px] h-[50px]" />
-              </Link>
-            </div>
-            <img
-              src={item.thumbImg}
-              className="rounded w-[300px] h-[200px]"
-            ></img>
+        {result.length > 0 ? (
+          <div>
+            {result.map((item: any) => (
+              <div className="pt-4" key={item._id}>
+                <div className="text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
+                  <Link href={`mediaplay/${item._id}`}>
+                    <HiOutlinePlay className="w-[50px] h-[50px]" />
+                  </Link>
+                </div>
+                <img
+                  src={item.thumbImg}
+                  className="rounded w-[300px] h-[200px]"
+                ></img>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div>Таны хайсан видео олдсонгүй</div>
+        )}
       </div>
     </div>
   );
