@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { list } from "../pages/api/api.media";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import { HiOutlinePlay } from "react-icons/hi";
 import Link from "next/link";
-
 type Props = {};
 type User = {
   _id: string | Blob;
@@ -56,7 +57,7 @@ const MainContents = (props: Props) => {
           {temp[0].map(
             (item: {
               _id: React.Key | null | undefined;
-              thumbImg: string;
+              thumbImg: string | undefined;
             }): any => (
               <div className="w-full h-full" key={item._id}>
                 <div className="w-[200px] h-[250px] text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
@@ -64,7 +65,7 @@ const MainContents = (props: Props) => {
                     <HiOutlinePlay className="w-[50px] h-[50px]" />
                   </Link>
                 </div>
-                <img src={item.thumbImg} alt="img" className="rounded"></img>
+                <img src={item.thumbImg} className="rounded"></img>
               </div>
             )
           )}
@@ -73,14 +74,13 @@ const MainContents = (props: Props) => {
         <div className="gap-2 columns-5 mt-4">
           {videos.map((item: any) => (
             <div className="pt-4" key={item._id}>
-              <div className="text-white absolute mt-16 ml-[125px] opacity-0 hover:opacity-100">
+              <div className="text-white absolute mt-12 ml-[125px] opacity-0 hover:opacity-100">
                 <Link href={`mediaplay/${item._id}`}>
                   <HiOutlinePlay className="w-[50px] h-[50px]" />
                 </Link>
               </div>
               <img
                 src={item.thumbImg}
-                alt="img"
                 className="rounded w-[300px] h-[200px]"
               ></img>
             </div>
